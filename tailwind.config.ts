@@ -57,6 +57,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        neon: {
+          DEFAULT: "hsl(var(--neon-glow))",
+          intense: "hsl(var(--neon-glow-intense))",
+        },
+      },
+      fontFamily: {
+        mono: ['Fira Code', 'Courier New', 'monospace'],
       },
       borderRadius: {
         lg: "var(--radius)",
