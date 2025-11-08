@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, ExternalLink, MessageSquare } from "lucide-react";
+import heroPersonImg from "@/assets/hero-person.png";
+import chertnodesImg from "@/assets/chertnodes.png";
+import protectxImg from "@/assets/protectx.png";
+import kahootImg from "@/assets/kahoot.png";
 
 const Home = () => {
   return (
@@ -24,15 +28,18 @@ const Home = () => {
 
           <div className="relative animate-slide-in-right">
             <div className="absolute top-0 right-0 w-64 h-64 dot-pattern opacity-30" />
+            <div className="absolute bottom-8 right-8 w-48 h-48 dot-pattern opacity-30" />
             <div className="relative z-10 flex items-center justify-center">
-              <div className="w-80 h-96 bg-gradient-to-br from-primary/20 to-transparent border-2 border-primary/30 neon-border flex items-center justify-center">
-                <div className="text-6xl">👤</div>
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4">
-              <div className="bg-card border border-border px-6 py-3 flex items-center gap-2">
-                <div className="w-3 h-3 bg-primary rounded-sm animate-glow" />
-                <span className="text-sm">Currently working on <span className="font-bold text-primary">Portfolio</span></span>
+              <div className="relative">
+                <div className="w-80 h-96 bg-gradient-to-br from-primary/20 to-transparent border-2 border-primary/30 neon-border overflow-hidden">
+                  <img src={heroPersonImg} alt="Developer" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-max">
+                  <div className="bg-card border border-primary/50 px-6 py-3 flex items-center gap-2 neon-border">
+                    <div className="w-3 h-3 bg-primary rounded-sm animate-glow" />
+                    <span className="text-sm">Currently working on <span className="font-bold text-primary">Portfolio</span></span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -67,26 +74,29 @@ const Home = () => {
               tech: "HTML SCSS Python Flask",
               desc: "Minecraft servers hosting",
               tags: ["Live", "Cached"],
+              image: chertnodesImg,
             },
             {
               name: "ProtectX",
               tech: "React Express Discord.js Node.JS",
               desc: "Discord anti-crash bot",
               tags: ["Live"],
+              image: protectxImg,
             },
             {
               name: "Kahoot Answers Viewer",
               tech: "CSS Express Node.JS",
               desc: "Get answers to your kahoot quiz",
               tags: ["Live"],
+              image: kahootImg,
             },
           ].map((project, index) => (
             <Card
               key={index}
               className="group border-2 border-border hover:border-primary transition-all overflow-hidden bg-card hover:neon-border"
             >
-              <div className="h-40 bg-gradient-to-br from-primary/20 to-transparent flex items-center justify-center text-4xl">
-                💻
+              <div className="h-48 overflow-hidden bg-muted">
+                <img src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-6 space-y-4">
                 <div className="text-xs text-muted-foreground">{project.tech}</div>
@@ -116,33 +126,52 @@ const Home = () => {
           <span className="text-primary">#</span>skills
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="relative h-full flex items-center justify-center">
             <div className="dot-pattern w-32 h-32 opacity-30 absolute top-0 left-0" />
+            <div className="dot-pattern w-24 h-24 opacity-20 absolute bottom-12 right-8" />
             <div className="space-y-6 relative z-10">
-              <div className="w-48 h-48 border-2 border-primary/30 ml-16 relative">
-                <div className="absolute -bottom-12 -left-12 w-32 h-32 border-2 border-primary/20" />
+              <div className="w-64 h-64 border-2 border-primary/30 relative">
+                <div className="absolute -bottom-16 -left-16 w-48 h-48 border-2 border-primary/20" />
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { title: "Languages", items: ["TypeScript", "Lua", "Python", "JavaScript"] },
-              { title: "Databases", items: ["SQLite", "PostgreSQL", "Mongo"] },
-              { title: "Tools", items: ["VSCode", "Neovim", "Linux", "Figma", "XFCE", "Arch"] },
-              { title: "Other", items: ["HTML", "CSS", "EJS", "SCSS", "REST", "Jinja"] },
-              { title: "Frameworks", items: ["React", "Vue", "Disnake", "Discord.js", "Flask", "Express.js"] },
-            ].map((category, index) => (
-              <Card key={index} className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
-                <h3 className="font-bold mb-3">{category.title}</h3>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                <h3 className="font-bold mb-3">Languages</h3>
                 <div className="text-sm text-muted-foreground space-y-1">
-                  {category.items.map((item) => (
-                    <div key={item}>{item}</div>
-                  ))}
+                  <div>TypeScript Lua</div>
+                  <div>Python JavaScript</div>
                 </div>
               </Card>
-            ))}
+              <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                <h3 className="font-bold mb-3">Databases</h3>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>SQLite PostgreSQL</div>
+                  <div>Mongo</div>
+                </div>
+              </Card>
+            </div>
+            <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+              <h3 className="font-bold mb-3">Tools</h3>
+              <div className="text-sm text-muted-foreground">
+                VSCode Neovim Linux Figma XFCE Arch Git Font Awesome KDE fish
+              </div>
+            </Card>
+            <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+              <h3 className="font-bold mb-3">Other</h3>
+              <div className="text-sm text-muted-foreground">
+                HTML CSS EJS SCSS REST Jinja
+              </div>
+            </Card>
+            <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+              <h3 className="font-bold mb-3">Frameworks</h3>
+              <div className="text-sm text-muted-foreground">
+                React Vue Disnake Discord.js Flask Express.js
+              </div>
+            </Card>
           </div>
         </div>
       </section>
@@ -174,8 +203,9 @@ const Home = () => {
 
           <div className="relative">
             <div className="absolute top-0 right-0 dot-pattern w-32 h-32 opacity-30" />
-            <div className="w-full h-96 bg-gradient-to-br from-primary/20 to-transparent border-2 border-primary/30 neon-border flex items-center justify-center">
-              <div className="text-8xl">👤</div>
+            <div className="absolute bottom-0 left-0 dot-pattern w-24 h-24 opacity-20" />
+            <div className="w-full h-96 bg-gradient-to-br from-primary/20 to-transparent border-2 border-primary/30 neon-border overflow-hidden">
+              <img src={heroPersonImg} alt="About me" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>

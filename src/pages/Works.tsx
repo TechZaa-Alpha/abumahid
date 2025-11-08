@@ -1,6 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
+import chertnodesImg from "@/assets/chertnodes.png";
+import protectxImg from "@/assets/protectx.png";
+import kahootImg from "@/assets/kahoot.png";
+import kotikBotImg from "@/assets/kotik-bot.png";
+import portfolioImg from "@/assets/portfolio.png";
 
 const Works = () => {
   const completeApps = [
@@ -12,30 +17,35 @@ const Works = () => {
         { label: "Live", icon: ExternalLink },
         { label: "Cached", icon: null },
       ],
+      image: chertnodesImg,
     },
     {
       name: "Kahoot Answers Viewer",
       tech: "CSS Express Node.JS",
       desc: "Get answers to your kahoot quiz",
       tags: [{ label: "Live", icon: ExternalLink }],
+      image: kahootImg,
     },
     {
       name: "ProtectX",
       tech: "React Express Discord.js Node.JS",
       desc: "Discord anti-crash bot",
       tags: [{ label: "Cached", icon: null }],
+      image: protectxImg,
     },
     {
       name: "Kotik Bot",
       tech: "HTML CSS JS",
       desc: "Multi-functional discord bot",
       tags: [{ label: "Live", icon: ExternalLink }],
+      image: kotikBotImg,
     },
     {
       name: "Portfolio",
       tech: "Vue TS Less",
       desc: "You're using it rn",
       tags: [{ label: "Github", icon: Github }],
+      image: portfolioImg,
     },
   ];
 
@@ -112,8 +122,8 @@ const Works = () => {
                 className="group border-2 border-border hover:border-primary transition-all overflow-hidden bg-card hover:neon-border animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="h-40 bg-gradient-to-br from-primary/20 to-transparent flex items-center justify-center text-4xl">
-                  💻
+                <div className="h-48 overflow-hidden bg-muted">
+                  <img src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6 space-y-4">
                   <div className="text-xs text-muted-foreground">{project.tech}</div>

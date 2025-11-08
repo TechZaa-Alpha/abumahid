@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import heroPersonImg from "@/assets/hero-person.png";
 
 const About = () => {
   const skills = [
@@ -62,8 +63,8 @@ const About = () => {
           <div className="relative animate-slide-in-right">
             <div className="absolute top-0 right-0 dot-pattern w-32 h-32 opacity-30" />
             <div className="absolute bottom-0 left-0 dot-pattern w-24 h-24 opacity-20" />
-            <div className="relative w-full h-96 bg-gradient-to-br from-primary/20 to-transparent border-2 border-primary/30 neon-border flex items-center justify-center">
-              <div className="text-8xl">👤</div>
+            <div className="relative w-full h-96 bg-gradient-to-br from-primary/20 to-transparent border-2 border-primary/30 neon-border overflow-hidden">
+              <img src={heroPersonImg} alt="About me" className="w-full h-full object-cover" />
             </div>
           </div>
         </section>
@@ -73,23 +74,55 @@ const About = () => {
           <h2 className="text-3xl font-bold mb-8 animate-fade-in">
             <span className="text-primary">#</span>skills
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-            {skills.map((skill, index) => (
-              <Card
-                key={index}
-                className="p-6 border-2 border-border hover:border-primary transition-all bg-card animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <h3 className="font-bold mb-4 text-foreground">{skill.category}</h3>
-                <div className="space-y-2">
-                  {skill.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="text-sm text-muted-foreground">
-                      {item}
-                    </div>
-                  ))}
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="relative h-full flex items-center justify-center">
+              <div className="dot-pattern w-32 h-32 opacity-30 absolute top-0 left-0" />
+              <div className="dot-pattern w-24 h-24 opacity-20 absolute bottom-12 right-8" />
+              <div className="space-y-6 relative z-10">
+                <div className="w-56 h-56 border-2 border-primary/30 relative">
+                  <div className="absolute -bottom-12 -left-12 w-40 h-40 border-2 border-primary/20" />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                  <h3 className="font-bold mb-3">Languages</h3>
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <div>TypeScript Lua</div>
+                    <div>Python JavaScript</div>
+                  </div>
+                </Card>
+                <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                  <h3 className="font-bold mb-3">Databases</h3>
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <div>SQLite PostgreSQL</div>
+                    <div>Mongo</div>
+                  </div>
+                </Card>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                  <h3 className="font-bold mb-3">Tools</h3>
+                  <div className="text-sm text-muted-foreground">
+                    VSCode Neovim Linux Figma XFCE Arch
+                  </div>
+                </Card>
+                <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                  <h3 className="font-bold mb-3">Other</h3>
+                  <div className="text-sm text-muted-foreground">
+                    HTML CSS EJS SCSS REST Jinja
+                  </div>
+                </Card>
+              </div>
+              <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                <h3 className="font-bold mb-3">Frameworks</h3>
+                <div className="text-sm text-muted-foreground">
+                  React Vue Disnake Discord.js Flask Express.js
                 </div>
               </Card>
-            ))}
+            </div>
           </div>
         </section>
 
