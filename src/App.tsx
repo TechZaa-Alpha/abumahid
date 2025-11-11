@@ -22,10 +22,10 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="relative min-h-screen">
-          <SocialSidebar />
           <Navigation />
+          <SocialSidebar />
           <DecorativeElements />
-          <main className="relative z-10 lg:ml-12">
+          <main className="relative z-10">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/works" element={<Works />} />
