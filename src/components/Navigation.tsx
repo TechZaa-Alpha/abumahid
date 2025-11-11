@@ -1,67 +1,74 @@
 import { Link, useLocation } from "react-router-dom";
-import { Code2 } from "lucide-react";
 
 const Navigation = () => {
   const location = useLocation();
-
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
-            <Code2 className="w-5 h-5" />
-            <span className="font-bold">Elias</span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-4 h-4 border-2 border-foreground" />
+            <span className="font-bold text-foreground group-hover:text-primary transition-colors">Elias</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
             <Link
               to="/"
-              className={`text-sm transition-all hover:text-primary ${
-                isActive("/") ? "text-primary neon-glow" : "text-muted-foreground"
+              className={`text-sm transition-colors relative ${
+                isActive("/") ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              #home
+              <span className="text-primary">#</span>home
+              {isActive("/") && <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />}
             </Link>
             <Link
               to="/works"
-              className={`text-sm transition-all hover:text-primary ${
-                isActive("/works") ? "text-primary neon-glow" : "text-muted-foreground"
+              className={`text-sm transition-colors relative ${
+                isActive("/works") ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              #works
+              <span className="text-primary">#</span>works
+              {isActive("/works") && <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />}
             </Link>
             <Link
               to="/about"
-              className={`text-sm transition-all hover:text-primary ${
-                isActive("/about") ? "text-primary neon-glow" : "text-muted-foreground"
+              className={`text-sm transition-colors relative ${
+                isActive("/about") ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              #about-me
+              <span className="text-primary">#</span>about-me
+              {isActive("/about") && <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />}
             </Link>
             <Link
               to="/contacts"
-              className={`text-sm transition-all hover:text-primary ${
-                isActive("/contacts") ? "text-primary neon-glow" : "text-muted-foreground"
+              className={`text-sm transition-colors relative ${
+                isActive("/contacts") ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              #contacts
+              <span className="text-primary">#</span>contacts
+              {isActive("/contacts") && <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />}
             </Link>
+            <select className="text-sm bg-transparent border-none text-muted-foreground cursor-pointer">
+              <option>EN</option>
+              <option>RU</option>
+              <option>UA</option>
+            </select>
           </div>
 
-          <div className="md:hidden flex items-center gap-6">
-            <Link to="/" className={`text-xs ${isActive("/") ? "text-primary" : "text-muted-foreground"}`}>
-              #home
+          <div className="md:hidden flex items-center gap-4 text-xs">
+            <Link to="/" className={isActive("/") ? "text-primary" : "text-muted-foreground"}>
+              <span className="text-primary">#</span>home
             </Link>
-            <Link to="/works" className={`text-xs ${isActive("/works") ? "text-primary" : "text-muted-foreground"}`}>
-              #works
+            <Link to="/works" className={isActive("/works") ? "text-primary" : "text-muted-foreground"}>
+              <span className="text-primary">#</span>works
             </Link>
-            <Link to="/about" className={`text-xs ${isActive("/about") ? "text-primary" : "text-muted-foreground"}`}>
-              #about-me
+            <Link to="/about" className={isActive("/about") ? "text-primary" : "text-muted-foreground"}>
+              <span className="text-primary">#</span>about
             </Link>
-            <Link to="/contacts" className={`text-xs ${isActive("/contacts") ? "text-primary" : "text-muted-foreground"}`}>
-              #contacts
+            <Link to="/contacts" className={isActive("/contacts") ? "text-primary" : "text-muted-foreground"}>
+              <span className="text-primary">#</span>contacts
             </Link>
           </div>
         </div>
