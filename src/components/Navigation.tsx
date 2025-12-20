@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Code2 } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
   const location = useLocation();
@@ -48,9 +49,10 @@ const Navigation = () => {
             >
               #contacts
             </Link>
+            <ThemeToggle />
           </div>
 
-          <div className="md:hidden flex items-center gap-6">
+          <div className="md:hidden flex items-center gap-4">
             <Link to="/" className={`text-xs ${isActive("/") ? "text-primary" : "text-muted-foreground"}`}>
               #home
             </Link>
@@ -63,6 +65,7 @@ const Navigation = () => {
             <Link to="/contacts" className={`text-xs ${isActive("/contacts") ? "text-primary" : "text-muted-foreground"}`}>
               #contacts
             </Link>
+            <ThemeToggle />
           </div>
         </div>
       </div>
