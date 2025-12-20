@@ -7,14 +7,16 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
+  /* Dark Theme (Default) */
+  :root,
+  .dark {
     --background: 220 26% 14%;
     --foreground: 210 40% 98%;
 
     --card: 220 26% 16%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 220 26% 14%;
+    --popover: 220 26% 16%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 280 80% 60%;
@@ -24,12 +26,12 @@ All colors MUST be HSL.
     --secondary-foreground: 210 40% 98%;
 
     --muted: 220 26% 18%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20% 65%;
 
     --accent: 280 80% 60%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 220 26% 25%;
@@ -50,6 +52,94 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 220 26% 25%;
     --sidebar-ring: 280 80% 60%;
+  }
+
+  /* Light Theme */
+  .light {
+    --background: 0 0% 98%;
+    --foreground: 220 26% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 26% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 26% 14%;
+
+    --primary: 280 80% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 220 26% 14%;
+
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 10% 40%;
+
+    --accent: 280 80% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 85%;
+    --input: 220 20% 90%;
+    --ring: 280 80% 50%;
+
+    --neon-glow: 280 80% 50%;
+    --neon-glow-intense: 280 100% 60%;
+    --dot-pattern: 220 20% 85%;
+    
+    --sidebar-background: 0 0% 96%;
+    --sidebar-foreground: 220 26% 14%;
+    --sidebar-primary: 280 80% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 20% 92%;
+    --sidebar-accent-foreground: 220 26% 14%;
+    --sidebar-border: 220 20% 85%;
+    --sidebar-ring: 280 80% 50%;
+  }
+
+  /* Yellow Theme */
+  .yellow {
+    --background: 45 30% 10%;
+    --foreground: 45 80% 95%;
+
+    --card: 45 30% 12%;
+    --card-foreground: 45 80% 95%;
+
+    --popover: 45 30% 12%;
+    --popover-foreground: 45 80% 95%;
+
+    --primary: 45 100% 55%;
+    --primary-foreground: 45 30% 10%;
+
+    --secondary: 45 30% 15%;
+    --secondary-foreground: 45 80% 95%;
+
+    --muted: 45 30% 15%;
+    --muted-foreground: 45 30% 60%;
+
+    --accent: 45 100% 55%;
+    --accent-foreground: 45 30% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 45 80% 95%;
+
+    --border: 45 30% 25%;
+    --input: 45 30% 18%;
+    --ring: 45 100% 55%;
+
+    --neon-glow: 45 100% 55%;
+    --neon-glow-intense: 45 100% 65%;
+    --dot-pattern: 45 30% 25%;
+    
+    --sidebar-background: 45 30% 8%;
+    --sidebar-foreground: 45 80% 95%;
+    --sidebar-primary: 45 100% 55%;
+    --sidebar-primary-foreground: 45 30% 10%;
+    --sidebar-accent: 45 30% 15%;
+    --sidebar-accent-foreground: 45 80% 95%;
+    --sidebar-border: 45 30% 25%;
+    --sidebar-ring: 45 100% 55%;
   }
 }
 
