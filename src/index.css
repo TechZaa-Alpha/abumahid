@@ -58,6 +58,10 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground font-mono;
   }
@@ -76,6 +80,47 @@ All colors MUST be HSL.
     box-shadow: 0 0 15px hsl(var(--neon-glow-intense)), 0 0 30px hsl(var(--neon-glow-intense) / 0.8), 0 0 45px hsl(var(--neon-glow-intense) / 0.6);
   }
 
+  .neon-pulse {
+    animation: neonPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes neonPulse {
+    0%, 100% {
+      box-shadow: 0 0 5px hsl(var(--neon-glow) / 0.5), 0 0 10px hsl(var(--neon-glow) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(var(--neon-glow)), 0 0 40px hsl(var(--neon-glow) / 0.8), 0 0 60px hsl(var(--neon-glow) / 0.6);
+    }
+  }
+
+  .neon-text-pulse {
+    animation: neonTextPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes neonTextPulse {
+    0%, 100% {
+      text-shadow: 0 0 5px hsl(var(--neon-glow)), 0 0 10px hsl(var(--neon-glow));
+    }
+    50% {
+      text-shadow: 0 0 20px hsl(var(--neon-glow-intense)), 0 0 40px hsl(var(--neon-glow-intense)), 0 0 60px hsl(var(--neon-glow-intense));
+    }
+  }
+
+  .neon-flicker {
+    animation: neonFlicker 3s linear infinite;
+  }
+
+  @keyframes neonFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      text-shadow: 0 0 10px hsl(var(--neon-glow)), 0 0 20px hsl(var(--neon-glow)), 0 0 30px hsl(var(--neon-glow));
+      opacity: 1;
+    }
+    20%, 24%, 55% {
+      text-shadow: none;
+      opacity: 0.8;
+    }
+  }
+
   .dot-pattern {
     background-image: radial-gradient(hsl(var(--dot-pattern)) 1px, transparent 1px);
     background-size: 20px 20px;
@@ -87,15 +132,30 @@ All colors MUST be HSL.
 
   @keyframes glow {
     from {
-      text-shadow: 0 0 10px hsl(var(--neon-glow)), 0 0 20px hsl(var(--neon-glow)), 0 0 30px hsl(var(--neon-glow));
+      box-shadow: 0 0 5px hsl(var(--neon-glow)), 0 0 10px hsl(var(--neon-glow));
     }
     to {
-      text-shadow: 0 0 20px hsl(var(--neon-glow-intense)), 0 0 30px hsl(var(--neon-glow-intense)), 0 0 40px hsl(var(--neon-glow-intense)), 0 0 50px hsl(var(--neon-glow-intense));
+      box-shadow: 0 0 15px hsl(var(--neon-glow-intense)), 0 0 25px hsl(var(--neon-glow-intense)), 0 0 35px hsl(var(--neon-glow-intense));
     }
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in-delay-1 {
+    animation: fadeIn 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-delay-2 {
+    animation: fadeIn 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-delay-3 {
+    animation: fadeIn 0.8s ease-out 0.6s forwards;
+    opacity: 0;
   }
 
   @keyframes fadeIn {
@@ -138,4 +198,51 @@ All colors MUST be HSL.
       transform: translateX(0);
     }
   }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-rotate-slow {
+    animation: rotateSlow 20s linear infinite;
+  }
+
+  @keyframes rotateSlow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .hover-neon-glow {
+    transition: all 0.3s ease;
+  }
+
+  .hover-neon-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--neon-glow)), 0 0 40px hsl(var(--neon-glow) / 0.5);
+    border-color: hsl(var(--primary));
+  }
+
+  .stagger-children > * {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
 }
