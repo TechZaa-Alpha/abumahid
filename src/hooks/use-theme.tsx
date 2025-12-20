@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
-type Theme = "dark" | "light" | "yellow";
+type Theme = "dark" | "light" | "yellow" | "blue" | "green" | "pink";
 
 interface ThemeContextType {
   theme: Theme;
@@ -17,7 +17,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.remove("dark", "light", "yellow");
+    root.classList.remove("dark", "light", "yellow", "blue", "green", "pink");
     root.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
