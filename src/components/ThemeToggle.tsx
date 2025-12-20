@@ -1,4 +1,4 @@
-import { Moon, Sun, Sparkles } from "lucide-react";
+import { Moon, Sun, Sparkles, Droplets, Leaf, Heart } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,12 @@ const ThemeToggle = () => {
         return <Sun className="w-4 h-4" />;
       case "yellow":
         return <Sparkles className="w-4 h-4" />;
+      case "blue":
+        return <Droplets className="w-4 h-4" />;
+      case "green":
+        return <Leaf className="w-4 h-4" />;
+      case "pink":
+        return <Heart className="w-4 h-4" />;
       default:
         return <Moon className="w-4 h-4" />;
     }
@@ -54,6 +60,27 @@ const ThemeToggle = () => {
         >
           <Sparkles className="w-4 h-4 mr-2" />
           Yellow
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("blue")}
+          className={`cursor-pointer ${theme === "blue" ? "text-primary" : ""}`}
+        >
+          <Droplets className="w-4 h-4 mr-2" />
+          Blue
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("green")}
+          className={`cursor-pointer ${theme === "green" ? "text-primary" : ""}`}
+        >
+          <Leaf className="w-4 h-4 mr-2" />
+          Green
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("pink")}
+          className={`cursor-pointer ${theme === "pink" ? "text-primary" : ""}`}
+        >
+          <Heart className="w-4 h-4 mr-2" />
+          Pink
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
