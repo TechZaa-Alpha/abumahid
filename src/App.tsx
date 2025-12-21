@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import AdminSetup from "./pages/AdminSetup";
+import ProjectDetails from "./pages/ProjectDetails";
 import Navigation from "./components/Navigation";
 import SocialSidebar from "./components/SocialSidebar";
 import DecorativeElements from "./components/DecorativeElements";
@@ -34,6 +35,7 @@ const AppLayout = () => {
           <Route path="/works" element={<Works />} />
           <Route path="/about" element={<About />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/setup" element={<AdminSetup />} />
