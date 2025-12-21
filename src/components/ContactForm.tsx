@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Loader2 } from "lucide-react";
 import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -30,7 +31,6 @@ const ContactForm = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name as keyof ContactFormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -40,7 +40,6 @@ const ContactForm = () => {
     e.preventDefault();
     setErrors({});
 
-    // Validate form data
     const result = contactSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -54,16 +53,31 @@ const ContactForm = () => {
 
     setIsSubmitting(true);
 
-    // Simulate form submission (replace with actual API call when Cloud is enabled)
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const { error } = await supabase.from('contacts').insert({
+        name: result.data.name,
+        email: result.data.email,
+        subject: result.data.subject,
+        message: result.data.message,
+      });
 
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!",
-    });
+      if (error) throw error;
 
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    setIsSubmitting(false);
+      toast({
+        title: "Message sent!",
+        description: "Thank you for reaching out. I'll get back to you soon!",
+      });
+
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error: any) {
+      toast({
+        title: "Failed to send message",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
