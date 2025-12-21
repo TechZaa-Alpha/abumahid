@@ -11,6 +11,7 @@ import Contacts from "./pages/Contacts";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
+import AdminSetup from "./pages/AdminSetup";
 import Navigation from "./components/Navigation";
 import SocialSidebar from "./components/SocialSidebar";
 import DecorativeElements from "./components/DecorativeElements";
@@ -35,6 +36,7 @@ const AppLayout = () => {
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/setup" element={<AdminSetup />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
