@@ -1,0 +1,156 @@
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, ExternalLink, Github, Figma } from 'lucide-react';
+import type { Tables } from '@/integrations/supabase/types';
+
+type Project = Tables<'projects'>;
+
+const ProjectDetails = () => {
+  const { id } = useParams<{ id: string }>();
+  const [project, setProject] = useState<Project | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (id) {
+      fetchProject();
+    }
+  }, [id]);
+
+  const fetchProject = async () => {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('id', id)
+      .eq('is_published', true)
+      .single();
+
+    if (!error && data) {
+      setProject(data);
+    }
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!project) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
+        <h1 className="text-2xl font-bold">Project not found</h1>
+        <Button asChild>
+          <Link to="/works">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Works
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen py-20 px-4 md:px-8 lg:px-16">
+      <div className="max-w-4xl mx-auto">
+        <Link 
+          to="/works" 
+          className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-8"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Works
+        </Link>
+
+        {project.image_url && (
+          <div className="mb-8 rounded-lg overflow-hidden border border-border">
+            <img 
+              src={project.image_url} 
+              alt={project.name}
+              className="w-full h-auto"
+            />
+          </div>
+        )}
+
+        <div className="space-y-6">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              {project.is_featured && (
+                <Badge variant="default" className="bg-primary">Featured</Badge>
+              )}
+            </div>
+            <h1 className="text-4xl font-bold mb-4">
+              <span className="text-primary neon-glow">#</span> {project.name}
+            </h1>
+          </div>
+
+          {project.tech_stack && project.tech_stack.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {project.tech_stack.map((tech) => (
+                <Badge key={tech} variant="secondary" className="border border-border">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+          )}
+
+          <div className="flex flex-wrap gap-3">
+            {project.live_url && (
+              <Button asChild className="gap-2">
+                <a href={project.live_url} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="h-4 w-4" />
+                  Live Demo
+                </a>
+              </Button>
+            )}
+            {project.github_url && (
+              <Button variant="outline" asChild className="gap-2">
+                <a href={project.github_url} target="_blank" rel="noopener noreferrer">
+                  <Github className="h-4 w-4" />
+                  GitHub
+                </a>
+              </Button>
+            )}
+            {project.figma_url && (
+              <Button variant="outline" asChild className="gap-2">
+                <a href={project.figma_url} target="_blank" rel="noopener noreferrer">
+                  <Figma className="h-4 w-4" />
+                  Figma
+                </a>
+              </Button>
+            )}
+          </div>
+
+          {project.description && (
+            <div className="border-t border-border pt-6">
+              <h2 className="text-xl font-bold mb-4">About this project</h2>
+              <div 
+                className="prose prose-invert max-w-none"
+                dangerouslySetInnerHTML={{ __html: project.description }}
+              />
+            </div>
+          )}
+
+          {project.tags && project.tags.length > 0 && (
+            <div className="border-t border-border pt-6">
+              <h3 className="text-sm text-muted-foreground mb-3">Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <Badge key={tag} variant="outline">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProjectDetails;

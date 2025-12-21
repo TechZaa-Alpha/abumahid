@@ -3,10 +3,10 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
+import { RichTextEditor } from '@/components/RichTextEditor';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import type { Tables } from '@/integrations/supabase/types';
 
@@ -143,13 +143,10 @@ export const AdminProjects = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              value={editingProject.description || ''}
-              onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
-              placeholder="Project description"
-              rows={3}
+            <Label>Description</Label>
+            <RichTextEditor
+              content={editingProject.description || ''}
+              onChange={(content) => setEditingProject({ ...editingProject, description: content })}
             />
           </div>
 
