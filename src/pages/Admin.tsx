@@ -6,6 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import { LogOut } from 'lucide-react';
 import { AdminBlogs } from '@/components/admin/AdminBlogs';
 import { AdminProjects } from '@/components/admin/AdminProjects';
+import { AdminSkills } from '@/components/admin/AdminSkills';
 import { AdminContacts } from '@/components/admin/AdminContacts';
 import { AdminAnalytics } from '@/components/admin/AdminAnalytics';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
@@ -78,6 +79,8 @@ const Admin = () => {
         return <AdminBlogs />;
       case 'projects':
         return <AdminProjects />;
+      case 'skills':
+        return <AdminSkills />;
       case 'contacts':
         return <AdminContacts />;
       case 'analytics':

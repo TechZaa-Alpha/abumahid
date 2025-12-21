@@ -1,13 +1,55 @@
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, ExternalLink, MessageSquare, Gamepad2, Music, Coffee, Star, Sparkles } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, ExternalLink, MessageSquare, Gamepad2, Music, Coffee, Star, Sparkles, Github } from "lucide-react";
 import heroPersonImg from "@/assets/hero-person.png";
-import chertnodesImg from "@/assets/chertnodes.png";
-import protectxImg from "@/assets/protectx.png";
-import kahootImg from "@/assets/kahoot.png";
+import type { Tables } from '@/integrations/supabase/types';
+
+type Project = Tables<'projects'>;
+type Skill = Tables<'skills'>;
 
 const Home = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [skills, setSkills] = useState<Skill[]>([]);
+
+  useEffect(() => {
+    fetchProjects();
+    fetchSkills();
+  }, []);
+
+  const fetchProjects = async () => {
+    const { data } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('is_published', true)
+      .eq('is_featured', true)
+      .order('created_at', { ascending: false })
+      .limit(3);
+
+    setProjects(data || []);
+  };
+
+  const fetchSkills = async () => {
+    const { data } = await supabase
+      .from('skills')
+      .select('*')
+      .order('category')
+      .order('display_order');
+
+    setSkills(data || []);
+  };
+
+  // Group skills by category
+  const groupedSkills = skills.reduce((acc, skill) => {
+    const category = skill.category || 'Other';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(skill);
+    return acc;
+  }, {} as Record<string, Skill[]>);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -22,9 +64,11 @@ const Home = () => {
               He crafts responsive websites where technologies meet creativity
             </p>
             <div className="animate-fade-in-delay-2">
-              <Button className="neon-pulse bg-transparent border-2 border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105">
-                Contact me !!
-              </Button>
+              <Link to="/contacts">
+                <Button className="neon-pulse bg-transparent border-2 border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105">
+                  Contact me !!
+                </Button>
+              </Link>
             </div>
           </div>
 
@@ -69,57 +113,50 @@ const Home = () => {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-          {[
-            {
-              name: "ChertNodes",
-              tech: "HTML SCSS Python Flask",
-              desc: "Minecraft servers hosting",
-              tags: ["Live", "Cached"],
-              image: chertnodesImg,
-            },
-            {
-              name: "ProtectX",
-              tech: "React Express Discord.js Node.JS",
-              desc: "Discord anti-crash bot",
-              tags: ["Live"],
-              image: protectxImg,
-            },
-            {
-              name: "Kahoot Answers Viewer",
-              tech: "CSS Express Node.JS",
-              desc: "Get answers to your kahoot quiz",
-              tags: ["Live"],
-              image: kahootImg,
-            },
-          ].map((project, index) => (
-            <Card
-              key={index}
-              className="group border-2 border-border hover:border-primary transition-all duration-300 overflow-hidden bg-card hover-neon-glow"
-            >
-              <div className="h-48 overflow-hidden bg-muted">
-                <img src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-              </div>
-              <div className="p-6 space-y-4">
-                <div className="text-xs text-muted-foreground">{project.tech}</div>
-                <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{project.name}</h3>
-                <p className="text-sm text-muted-foreground">{project.desc}</p>
-                <div className="flex gap-4">
-                  {project.tags.map((tag) => (
-                    <Button
-                      key={tag}
-                      variant="outline"
-                      size="sm"
-                      className="border-primary text-primary hover:bg-primary/10 hover:scale-105 transition-all duration-300"
-                    >
-                      {tag} <ExternalLink className="w-3 h-3 ml-2" />
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+        {projects.length === 0 ? (
+          <p className="text-muted-foreground text-center py-8">No projects yet. Add some in the admin panel!</p>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+            {projects.map((project, index) => (
+              <Link to={`/project/${project.id}`} key={project.id}>
+                <Card
+                  className="group border-2 border-border hover:border-primary transition-all duration-300 overflow-hidden bg-card hover-neon-glow h-full"
+                >
+                  {project.image_url && (
+                    <div className="h-48 overflow-hidden bg-muted">
+                      <img src={project.image_url} alt={project.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                  )}
+                  <div className="p-6 space-y-4">
+                    {project.tech_stack && project.tech_stack.length > 0 && (
+                      <div className="text-xs text-muted-foreground">
+                        {project.tech_stack.join(' ')}
+                      </div>
+                    )}
+                    <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{project.name}</h3>
+                    {project.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {project.description.replace(/<[^>]*>/g, '').slice(0, 80)}...
+                      </p>
+                    )}
+                    <div className="flex gap-2 flex-wrap">
+                      {project.live_url && (
+                        <Badge variant="outline" className="border-primary text-primary">
+                          Live <ExternalLink className="w-3 h-3 ml-1" />
+                        </Badge>
+                      )}
+                      {project.github_url && (
+                        <Badge variant="outline" className="border-primary text-primary">
+                          GitHub <Github className="w-3 h-3 ml-1" />
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Skills Section */}
@@ -143,40 +180,18 @@ const Home = () => {
           </div>
 
           <div className="space-y-4 stagger-children">
-            <div className="grid grid-cols-2 gap-4">
-              <Card className="p-4 border-2 border-border hover-neon-glow transition-all duration-300 bg-card">
-                <h3 className="font-bold mb-3 text-primary">Languages</h3>
-                <div className="text-sm text-muted-foreground space-y-1">
-                  <div>TypeScript Lua</div>
-                  <div>Python JavaScript</div>
-                </div>
-              </Card>
-              <Card className="p-4 border-2 border-border hover-neon-glow transition-all duration-300 bg-card">
-                <h3 className="font-bold mb-3 text-primary">Databases</h3>
-                <div className="text-sm text-muted-foreground space-y-1">
-                  <div>SQLite PostgreSQL</div>
-                  <div>Mongo</div>
-                </div>
-              </Card>
-            </div>
-            <Card className="p-4 border-2 border-border hover-neon-glow transition-all duration-300 bg-card">
-              <h3 className="font-bold mb-3 text-primary">Tools</h3>
-              <div className="text-sm text-muted-foreground">
-                VSCode Neovim Linux Figma XFCE Arch Git Font Awesome KDE fish
-              </div>
-            </Card>
-            <Card className="p-4 border-2 border-border hover-neon-glow transition-all duration-300 bg-card">
-              <h3 className="font-bold mb-3 text-primary">Other</h3>
-              <div className="text-sm text-muted-foreground">
-                HTML CSS EJS SCSS REST Jinja
-              </div>
-            </Card>
-            <Card className="p-4 border-2 border-border hover-neon-glow transition-all duration-300 bg-card">
-              <h3 className="font-bold mb-3 text-primary">Frameworks</h3>
-              <div className="text-sm text-muted-foreground">
-                React Vue Disnake Discord.js Flask Express.js
-              </div>
-            </Card>
+            {Object.keys(groupedSkills).length === 0 ? (
+              <p className="text-muted-foreground">No skills added yet. Add some in the admin panel!</p>
+            ) : (
+              Object.entries(groupedSkills).map(([category, categorySkills]) => (
+                <Card key={category} className="p-4 border-2 border-border hover-neon-glow transition-all duration-300 bg-card">
+                  <h3 className="font-bold mb-3 text-primary">{category}</h3>
+                  <div className="text-sm text-muted-foreground">
+                    {categorySkills.map(s => s.name).join(' ')}
+                  </div>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>
