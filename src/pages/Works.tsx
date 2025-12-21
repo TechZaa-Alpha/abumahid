@@ -1,104 +1,101 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
-import chertnodesImg from "@/assets/chertnodes.png";
-import protectxImg from "@/assets/protectx.png";
-import kahootImg from "@/assets/kahoot.png";
-import kotikBotImg from "@/assets/kotik-bot.png";
-import portfolioImg from "@/assets/portfolio.png";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Github, Figma } from "lucide-react";
+import type { Tables } from '@/integrations/supabase/types';
+
+type Project = Tables<'projects'>;
 
 const Works = () => {
-  const completeApps = [
-    {
-      name: "ChertNodes",
-      tech: "HTML SCSS Python Flask",
-      desc: "Minecraft servers hosting",
-      tags: [
-        { label: "Live", icon: ExternalLink },
-        { label: "Cached", icon: null },
-      ],
-      image: chertnodesImg,
-    },
-    {
-      name: "Kahoot Answers Viewer",
-      tech: "CSS Express Node.JS",
-      desc: "Get answers to your kahoot quiz",
-      tags: [{ label: "Live", icon: ExternalLink }],
-      image: kahootImg,
-    },
-    {
-      name: "ProtectX",
-      tech: "React Express Discord.js Node.JS",
-      desc: "Discord anti-crash bot",
-      tags: [{ label: "Cached", icon: null }],
-      image: protectxImg,
-    },
-    {
-      name: "Kotik Bot",
-      tech: "HTML CSS JS",
-      desc: "Multi-functional discord bot",
-      tags: [{ label: "Live", icon: ExternalLink }],
-      image: kotikBotImg,
-    },
-    {
-      name: "Portfolio",
-      tech: "Vue TS Less",
-      desc: "You're using it rn",
-      tags: [{ label: "Github", icon: Github }],
-      image: portfolioImg,
-    },
-  ];
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const smallProjects = [
-    {
-      name: "Bot boilerplate",
-      tech: "Discord.js TS JS",
-      desc: "Start creating scalable discord.js bot with TypeScript and JavaScript",
-      tags: [{ label: "Github", icon: Github }],
-    },
-    {
-      name: "My blog",
-      tech: "VUE CSS JS",
-      desc: "Front-end of my future blog website written on NuxtJS",
-      tags: [{ label: "Github", icon: Github }],
-    },
-    {
-      name: "Chess pro",
-      tech: "Figma",
-      desc: "Figma landing page about service for viewing chess tournaments",
-      tags: [{ label: "Figma", icon: ExternalLink }],
-    },
-    {
-      name: "Crash protect website",
-      tech: "Figma",
-      desc: "Template for website about anti-raid, anti-crash discord bot",
-      tags: [{ label: "Figma", icon: ExternalLink }],
-    },
-    {
-      name: "CSS expeirements",
-      tech: "HTML CSS",
-      desc: "Collection of my different little problems with CSS",
-      tags: [{ label: "Live", icon: ExternalLink }],
-    },
-    {
-      name: "Web Dev nvim config",
-      tech: "Lua NeoVim",
-      desc: "Config for neovim perfect for web developer",
-      tags: [{ label: "Github", icon: Github }],
-    },
-    {
-      name: "Ooku",
-      tech: "Python Quart HTML",
-      desc: "Simple link shortener with auth",
-      tags: [{ label: "Live", icon: ExternalLink }],
-    },
-    {
-      name: "School website",
-      tech: "Figma",
-      desc: "Figma template website for my school",
-      tags: [{ label: "Figma", icon: ExternalLink }],
-    },
-  ];
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    const { data } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('is_published', true)
+      .order('is_featured', { ascending: false })
+      .order('created_at', { ascending: false });
+
+    setProjects(data || []);
+    setIsLoading(false);
+  };
+
+  const featuredProjects = projects.filter(p => p.is_featured);
+  const regularProjects = projects.filter(p => !p.is_featured);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
+    <Link to={`/project/${project.id}`}>
+      <Card
+        className="group border-2 border-border hover:border-primary transition-all overflow-hidden bg-card hover:neon-border animate-fade-in cursor-pointer h-full"
+        style={{ animationDelay: `${index * 0.1}s` }}
+      >
+        {project.image_url && (
+          <div className="h-48 overflow-hidden bg-muted">
+            <img 
+              src={project.image_url} 
+              alt={project.name} 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+            />
+          </div>
+        )}
+        <div className="p-6 space-y-4">
+          {project.tech_stack && project.tech_stack.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {project.tech_stack.slice(0, 4).map((tech) => (
+                <span key={tech} className="text-xs text-muted-foreground">{tech}</span>
+              ))}
+            </div>
+          )}
+          <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{project.name}</h3>
+          {project.description && (
+            <p className="text-sm text-muted-foreground line-clamp-2">
+              {project.description.replace(/<[^>]*>/g, '').slice(0, 100)}...
+            </p>
+          )}
+          <div className="flex gap-2 flex-wrap">
+            {project.live_url && (
+              <Badge variant="outline" className="border-primary text-primary">
+                <ExternalLink className="w-3 h-3 mr-1" />
+                Live
+              </Badge>
+            )}
+            {project.github_url && (
+              <Badge variant="outline" className="border-primary text-primary">
+                <Github className="w-3 h-3 mr-1" />
+                GitHub
+              </Badge>
+            )}
+            {project.figma_url && (
+              <Badge variant="outline" className="border-primary text-primary">
+                <Figma className="w-3 h-3 mr-1" />
+                Figma
+              </Badge>
+            )}
+            {project.is_featured && (
+              <Badge className="bg-primary">Featured</Badge>
+            )}
+          </div>
+        </div>
+      </Card>
+    </Link>
+  );
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -110,78 +107,39 @@ const Works = () => {
           <p className="text-muted-foreground">List of my projects</p>
         </div>
 
-        {/* Complete Apps */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">
-            <span className="text-primary">#</span>complete-apps
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {completeApps.map((project, index) => (
-              <Card
-                key={index}
-                className="group border-2 border-border hover:border-primary transition-all overflow-hidden bg-card hover:neon-border animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="h-48 overflow-hidden bg-muted">
-                  <img src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                </div>
-                <div className="p-6 space-y-4">
-                  <div className="text-xs text-muted-foreground">{project.tech}</div>
-                  <h3 className="text-xl font-bold">{project.name}</h3>
-                  <p className="text-sm text-muted-foreground">{project.desc}</p>
-                  <div className="flex gap-2 flex-wrap">
-                    {project.tags.map((tag, tagIndex) => (
-                      <Button
-                        key={tagIndex}
-                        variant="outline"
-                        size="sm"
-                        className="border-primary text-primary hover:bg-primary/10"
-                      >
-                        {tag.label}{" "}
-                        {tag.icon && <tag.icon className="w-3 h-3 ml-2" />}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </Card>
-            ))}
+        {projects.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground text-lg">No projects yet. Check back soon!</p>
           </div>
-        </section>
+        ) : (
+          <>
+            {featuredProjects.length > 0 && (
+              <section className="mb-16">
+                <h2 className="text-2xl font-bold mb-6">
+                  <span className="text-primary">#</span>featured-projects
+                </h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {featuredProjects.map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
+                </div>
+              </section>
+            )}
 
-        {/* Small Projects */}
-        <section>
-          <h2 className="text-2xl font-bold mb-6">
-            <span className="text-primary">#</span>small-projects
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {smallProjects.map((project, index) => (
-              <Card
-                key={index}
-                className="group border-2 border-border hover:border-primary transition-all p-6 bg-card hover:neon-border animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="space-y-4">
-                  <div className="text-xs text-muted-foreground">{project.tech}</div>
-                  <h3 className="text-xl font-bold">{project.name}</h3>
-                  <p className="text-sm text-muted-foreground">{project.desc}</p>
-                  <div className="flex gap-2 flex-wrap">
-                    {project.tags.map((tag, tagIndex) => (
-                      <Button
-                        key={tagIndex}
-                        variant="outline"
-                        size="sm"
-                        className="border-primary text-primary hover:bg-primary/10"
-                      >
-                        {tag.label}{" "}
-                        {tag.icon && <tag.icon className="w-3 h-3 ml-2" />}
-                      </Button>
-                    ))}
-                  </div>
+            {regularProjects.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold mb-6">
+                  <span className="text-primary">#</span>all-projects
+                </h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {regularProjects.map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
                 </div>
-              </Card>
-            ))}
-          </div>
-        </section>
+              </section>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
