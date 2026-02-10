@@ -1,4 +1,4 @@
-import { FileText, Briefcase, MessageSquare, BarChart3, Wrench, Video } from 'lucide-react';
+import { FileText, Briefcase, MessageSquare, BarChart3, Wrench, Video, GraduationCap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface AdminSidebarProps {
@@ -11,6 +11,7 @@ const tabs = [
   { id: 'videos', label: 'Videos', icon: Video },
   { id: 'projects', label: 'Projects', icon: Briefcase },
   { id: 'skills', label: 'Skills', icon: Wrench },
+  { id: 'education', label: 'Education', icon: GraduationCap },
   { id: 'contacts', label: 'Contacts', icon: MessageSquare },
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
 ];

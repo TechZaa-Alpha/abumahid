@@ -14,6 +14,7 @@ interface Video {
   video_title: string;
   short_description: string | null;
   content_link: string;
+  thumbnail_url: string | null;
   is_published: boolean | null;
   created_at: string;
   updated_at: string;
@@ -42,7 +43,7 @@ export const AdminVideos = () => {
   };
 
   const handleNew = () => {
-    setEditingVideo({ video_title: '', short_description: '', content_link: '', is_published: false });
+    setEditingVideo({ video_title: '', short_description: '', content_link: '', thumbnail_url: '', is_published: false });
     setIsEditing(true);
   };
 
@@ -57,6 +58,7 @@ export const AdminVideos = () => {
       video_title: editingVideo.video_title,
       short_description: editingVideo.short_description || null,
       content_link: editingVideo.content_link,
+      thumbnail_url: editingVideo.thumbnail_url || null,
       is_published: editingVideo.is_published || false,
     };
 
@@ -97,6 +99,10 @@ export const AdminVideos = () => {
           <div className="space-y-2">
             <Label>Content Link (S3 URL)</Label>
             <Input value={editingVideo.content_link || ''} onChange={(e) => setEditingVideo({ ...editingVideo, content_link: e.target.value })} placeholder="https://s3.amazonaws.com/..." />
+          </div>
+          <div className="space-y-2">
+            <Label>Thumbnail URL</Label>
+            <Input value={editingVideo.thumbnail_url || ''} onChange={(e) => setEditingVideo({ ...editingVideo, thumbnail_url: e.target.value })} placeholder="https://img.youtube.com/vi/.../maxresdefault.jpg" />
           </div>
           <div className="flex items-center space-x-2">
             <Switch checked={editingVideo.is_published || false} onCheckedChange={(checked) => setEditingVideo({ ...editingVideo, is_published: checked })} />

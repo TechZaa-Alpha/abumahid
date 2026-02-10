@@ -12,6 +12,7 @@ interface Video {
   video_title: string;
   short_description: string | null;
   content_link: string;
+  thumbnail_url: string | null;
   is_published: boolean | null;
   created_at: string;
   updated_at: string;
