@@ -86,6 +86,45 @@ export type Database = {
         }
         Relationships: []
       }
+      education: {
+        Row: {
+          created_at: string
+          degree: string
+          description: string | null
+          display_order: number | null
+          end_date: string | null
+          field_of_study: string | null
+          id: string
+          institution: string
+          start_date: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          degree: string
+          description?: string | null
+          display_order?: number | null
+          end_date?: string | null
+          field_of_study?: string | null
+          id?: string
+          institution: string
+          start_date: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          degree?: string
+          description?: string | null
+          display_order?: number | null
+          end_date?: string | null
+          field_of_study?: string | null
+          id?: string
+          institution?: string
+          start_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           created_at: string
@@ -219,6 +258,7 @@ export type Database = {
           id: string
           is_published: boolean | null
           short_description: string | null
+          thumbnail_url: string | null
           updated_at: string
           video_title: string
         }
@@ -228,6 +268,7 @@ export type Database = {
           id?: string
           is_published?: boolean | null
           short_description?: string | null
+          thumbnail_url?: string | null
           updated_at?: string
           video_title: string
         }
@@ -237,6 +278,7 @@ export type Database = {
           id?: string
           is_published?: boolean | null
           short_description?: string | null
+          thumbnail_url?: string | null
           updated_at?: string
           video_title?: string
         }

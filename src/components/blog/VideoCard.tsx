@@ -5,6 +5,7 @@ interface Video {
   video_title: string;
   short_description: string | null;
   content_link: string;
+  thumbnail_url: string | null;
   created_at: string;
 }
 
@@ -19,14 +20,30 @@ export const VideoCard = ({ video }: { video: Video }) => {
         {/* Animated gradient top bar */}
         <div className="h-1.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Play button hero area */}
+        {/* Thumbnail / Play button hero area */}
         <div className="relative h-44 bg-gradient-to-br from-accent/5 via-card to-accent/10 flex items-center justify-center overflow-hidden">
-          {/* Animated circles */}
-          <div className="absolute w-32 h-32 rounded-full border border-accent/20 group-hover:scale-[2] group-hover:border-accent/10 transition-all duration-1000 ease-out" />
-          <div className="absolute w-20 h-20 rounded-full border border-accent/30 group-hover:scale-[2.5] group-hover:border-accent/5 transition-all duration-700 ease-out" />
+          {/* Thumbnail image */}
+          {video.thumbnail_url ? (
+            <img
+              src={video.thumbnail_url}
+              alt={video.video_title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+          ) : (
+            <>
+              {/* Animated circles fallback */}
+              <div className="absolute w-32 h-32 rounded-full border border-accent/20 group-hover:scale-[2] group-hover:border-accent/10 transition-all duration-1000 ease-out" />
+              <div className="absolute w-20 h-20 rounded-full border border-accent/30 group-hover:scale-[2.5] group-hover:border-accent/5 transition-all duration-700 ease-out" />
+            </>
+          )}
+
+          {/* Dark overlay for thumbnail */}
+          {video.thumbnail_url && (
+            <div className="absolute inset-0 bg-background/40 group-hover:bg-background/20 transition-all duration-500" />
+          )}
 
           {/* Play icon */}
-          <div className="relative z-10 w-16 h-16 rounded-full border-2 border-accent/60 flex items-center justify-center bg-accent/10 group-hover:bg-accent/20 group-hover:border-accent group-hover:shadow-[0_0_20px_hsl(var(--accent)/0.5)] transition-all duration-500 group-hover:scale-110">
+          <div className="relative z-10 w-16 h-16 rounded-full border-2 border-accent/60 flex items-center justify-center bg-accent/10 backdrop-blur-sm group-hover:bg-accent/20 group-hover:border-accent group-hover:shadow-[0_0_20px_hsl(var(--accent)/0.5)] transition-all duration-500 group-hover:scale-110">
             <Play className="w-7 h-7 text-accent ml-0.5 group-hover:scale-110 transition-transform duration-300" fill="currentColor" />
           </div>
 

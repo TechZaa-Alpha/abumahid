@@ -1,7 +1,34 @@
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
+import { GraduationCap } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import heroPersonImg from "@/assets/hero-person.png";
 
+interface Education {
+  id: string;
+  institution: string;
+  degree: string;
+  field_of_study: string | null;
+  start_date: string;
+  end_date: string | null;
+  description: string | null;
+  display_order: number | null;
+}
+
 const About = () => {
+  const [education, setEducation] = useState<Education[]>([]);
+
+  useEffect(() => {
+    const fetchEducation = async () => {
+      const { data } = await supabase
+        .from('education')
+        .select('*')
+        .order('display_order', { ascending: true });
+      setEducation((data as Education[]) || []);
+    };
+    fetchEducation();
+  }, []);
+
   const skills = [
     {
       category: "Languages",
@@ -23,16 +50,6 @@ const About = () => {
       category: "Frameworks",
       items: ["React", "Vue", "Disnake", "Discord.js", "Flask", "Express.js"],
     },
-  ];
-
-  const funFacts = [
-    "I like winter more than summer",
-    "I often bike with my friends",
-    "I like pizza and pasta",
-    "I was in Egypt, Poland and Turkey",
-    "My favorite movie is The Green Mile",
-    "I am still in school",
-    "I don't have any siblings",
   ];
 
   return (
@@ -126,33 +143,42 @@ const About = () => {
           </div>
         </section>
 
-        {/* Fun Facts Section */}
+        {/* Education Section */}
         <section>
           <h2 className="text-3xl font-bold mb-8 animate-fade-in">
-            <span className="text-primary">#</span>my-fun-facts
+            <span className="text-primary">#</span>education
           </h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="flex flex-wrap gap-4">
-              {funFacts.map((fact, index) => (
+          {education.length === 0 ? (
+            <p className="text-muted-foreground text-center py-8">No education entries yet.</p>
+          ) : (
+            <div className="space-y-6">
+              {education.map((edu, index) => (
                 <div
-                  key={index}
-                  className="border-2 border-border px-4 py-2 hover:border-primary transition-all animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  key={edu.id}
+                  className="relative pl-8 border-l-2 border-primary/30 hover:border-primary transition-all animate-fade-in group"
+                  style={{ animationDelay: `${index * 0.15}s` }}
                 >
-                  <p className="text-sm text-muted-foreground">{fact}</p>
+                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-primary bg-background group-hover:bg-primary group-hover:shadow-[0_0_12px_hsl(var(--primary))] transition-all" />
+                  <div className="flex items-start gap-3">
+                    <GraduationCap className="w-5 h-5 text-primary mt-1 shrink-0" />
+                    <div>
+                      <h3 className="font-bold text-lg">{edu.degree}</h3>
+                      {edu.field_of_study && (
+                        <p className="text-primary text-sm">{edu.field_of_study}</p>
+                      )}
+                      <p className="text-muted-foreground">{edu.institution}</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {edu.start_date} – {edu.end_date || 'Present'}
+                      </p>
+                      {edu.description && (
+                        <p className="text-sm text-muted-foreground mt-2">{edu.description}</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
-
-            <div className="relative">
-              <div className="absolute top-0 right-0 dot-pattern w-32 h-32 opacity-30" />
-              <div className="relative space-y-6">
-                <div className="w-64 h-64 border-2 border-primary/30 ml-auto relative">
-                  <div className="absolute -bottom-12 -left-12 w-48 h-48 border-2 border-primary/20" />
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </section>
       </div>
     </div>

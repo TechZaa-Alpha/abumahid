@@ -10,6 +10,7 @@ import { AdminProjects } from '@/components/admin/AdminProjects';
 import { AdminSkills } from '@/components/admin/AdminSkills';
 import { AdminContacts } from '@/components/admin/AdminContacts';
 import { AdminAnalytics } from '@/components/admin/AdminAnalytics';
+import { AdminEducation } from '@/components/admin/AdminEducation';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 
 const Admin = () => {
@@ -86,6 +87,8 @@ const Admin = () => {
         return <AdminSkills />;
       case 'contacts':
         return <AdminContacts />;
+      case 'education':
+        return <AdminEducation />;
       case 'analytics':
         return <AdminAnalytics />;
       default:
