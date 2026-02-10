@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { LogOut } from 'lucide-react';
 import { AdminBlogs } from '@/components/admin/AdminBlogs';
+import { AdminVideos } from '@/components/admin/AdminVideos';
 import { AdminProjects } from '@/components/admin/AdminProjects';
 import { AdminSkills } from '@/components/admin/AdminSkills';
 import { AdminContacts } from '@/components/admin/AdminContacts';
@@ -77,6 +78,8 @@ const Admin = () => {
     switch (activeTab) {
       case 'blogs':
         return <AdminBlogs />;
+      case 'videos':
+        return <AdminVideos />;
       case 'projects':
         return <AdminProjects />;
       case 'skills':
