@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Works from "./pages/Works";
 import About from "./pages/About";
 import Contacts from "./pages/Contacts";
+import Blogs from "./pages/Blogs";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
@@ -35,6 +36,7 @@ const AppLayout = () => {
           <Route path="/works" element={<Works />} />
           <Route path="/about" element={<About />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/blogs" element={<Blogs />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
