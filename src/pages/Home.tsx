@@ -2,8 +2,6 @@ import heroPersonImg from "@/assets/photo.webp";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
 import {
   ArrowRight,
   Coffee,
@@ -16,43 +14,27 @@ import {
   Star,
   UserRound,
 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-type Project = Tables<"projects">;
-type Skill = Tables<"skills">;
+// Static placeholder data - replace with your own or fetch from your custom backend
+const projects: {
+  id: string;
+  name: string;
+  description: string | null;
+  tech_stack: string[] | null;
+  image_url: string | null;
+  live_url: string | null;
+  github_url: string | null;
+  is_featured: boolean | null;
+}[] = [];
+
+const skills: {
+  id: string;
+  name: string;
+  category: string | null;
+}[] = [];
 
 const Home = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [skills, setSkills] = useState<Skill[]>([]);
-
-  useEffect(() => {
-    fetchProjects();
-    fetchSkills();
-  }, []);
-
-  const fetchProjects = async () => {
-    const { data } = await supabase
-      .from("projects")
-      .select("*")
-      .eq("is_published", true)
-      .eq("is_featured", true)
-      .order("created_at", { ascending: false })
-      .limit(3);
-
-    setProjects(data || []);
-  };
-
-  const fetchSkills = async () => {
-    const { data } = await supabase
-      .from("skills")
-      .select("*")
-      .order("category")
-      .order("display_order");
-
-    setSkills(data || []);
-  };
-
   // Group skills by category
   const groupedSkills = skills.reduce(
     (acc, skill) => {
@@ -61,7 +43,7 @@ const Home = () => {
       acc[category].push(skill);
       return acc;
     },
-    {} as Record<string, Skill[]>,
+    {} as Record<string, typeof skills>,
   );
 
   return (
@@ -109,8 +91,6 @@ const Home = () => {
                     fill="currentColor"
                     className="absolute top-4 right-4 w-12 h-12 text-primary rotate-12 drop-shadow-[0_0_12px_hsl(var(--primary))]"
                   />
-
-                  {/* Small star */}
                   <Star
                     fill="currentColor"
                     className="absolute top-1/2 left-4 w-6 h-6 text-primary -rotate-12 drop-shadow-[0_0_10px_hsl(var(--primary))]"
@@ -172,11 +152,11 @@ const Home = () => {
 
         {projects.length === 0 ? (
           <p className="text-muted-foreground text-center py-8">
-            No projects yet. Add some in the admin panel!
+            No projects yet. Add some from your backend!
           </p>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <Link to={`/project/${project.id}`} key={project.id}>
                 <Card className="group border-2 border-border hover:border-primary transition-all duration-300 overflow-hidden bg-card hover-neon-glow h-full">
                   {project.image_url && (
@@ -260,7 +240,7 @@ const Home = () => {
           <div className="space-y-4 stagger-children lg:col-span-2 lg:flex lg:flex-wrap lg:gap-8">
             {Object.keys(groupedSkills).length === 0 ? (
               <p className="text-muted-foreground">
-                No skills added yet. Add some in the admin panel!
+                No skills added yet.
               </p>
             ) : (
               Object.entries(groupedSkills).map(
@@ -364,7 +344,7 @@ const Home = () => {
               With a strong foundation in HTML, CSS, and responsive UI
               frameworks like Tailwind CSS, Shadcn UI, Bootstrap, and Ant
               Design, I bring user interfaces to life that are both visually
-              appealing and functionally robust. I’m passionate about creating
+              appealing and functionally robust. I'm passionate about creating
               seamless user experiences that are accessible, modern, and
               performance driven.
             </p>
@@ -422,7 +402,7 @@ const Home = () => {
                 href="mailto:dev.abumahid@gmail.com"
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2"
               >
-                📧 dev.abumahid@gmail.com
+                <Github className="w-4 h-4" /> dev.abumahid@gmail.com
               </a>
             </div>
           </Card>

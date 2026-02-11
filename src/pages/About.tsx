@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import heroPersonImg from "@/assets/hero-person.png";
 
-interface Education {
+// Static placeholder data - replace with your own or fetch from your custom backend
+const education: {
   id: string;
   institution: string;
   degree: string;
@@ -13,45 +12,9 @@ interface Education {
   end_date: string | null;
   description: string | null;
   display_order: number | null;
-}
+}[] = [];
 
 const About = () => {
-  const [education, setEducation] = useState<Education[]>([]);
-
-  useEffect(() => {
-    const fetchEducation = async () => {
-      const { data } = await supabase
-        .from('education')
-        .select('*')
-        .order('display_order', { ascending: true });
-      setEducation((data as Education[]) || []);
-    };
-    fetchEducation();
-  }, []);
-
-  const skills = [
-    {
-      category: "Languages",
-      items: ["TypeScript", "Lua", "Python", "JavaScript"],
-    },
-    {
-      category: "Other",
-      items: ["HTML", "CSS", "EJS", "SCSS", "REST", "Jinja"],
-    },
-    {
-      category: "Tools",
-      items: ["VSCode", "Neovim", "Linux", "Figma", "XFCE", "Arch", "Git", "Font Awesome", "KDE", "fish"],
-    },
-    {
-      category: "Databases",
-      items: ["SQLite", "PostgreSQL", "Mongo"],
-    },
-    {
-      category: "Frameworks",
-      items: ["React", "Vue", "Disnake", "Discord.js", "Flask", "Express.js"],
-    },
-  ];
-
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

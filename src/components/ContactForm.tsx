@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Loader2 } from "lucide-react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -54,14 +53,9 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from('contacts').insert({
-        name: result.data.name,
-        email: result.data.email,
-        subject: result.data.subject,
-        message: result.data.message,
-      });
-
-      if (error) throw error;
+      // TODO: Replace with your custom backend API call
+      // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(result.data) });
+      console.log('Contact form submitted:', result.data);
 
       toast({
         title: "Message sent!",

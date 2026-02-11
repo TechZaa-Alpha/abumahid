@@ -1,13 +1,23 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ArticleCard } from '@/components/blog/ArticleCard';
 import { VideoCard } from '@/components/blog/VideoCard';
-import type { Tables } from '@/integrations/supabase/types';
 
-type Blog = Tables<'blogs'>;
+// Static placeholder data - replace with your own or fetch from your custom backend
+export interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  content: string | null;
+  cover_image_url: string | null;
+  tags: string[] | null;
+  is_published: boolean | null;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
 
-interface Video {
+export interface Video {
   id: string;
   video_title: string;
   short_description: string | null;
@@ -18,32 +28,10 @@ interface Video {
   updated_at: string;
 }
 
+const blogs: Blog[] = [];
+const videos: Video[] = [];
+
 const Blogs = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const [blogsRes, videosRes] = await Promise.all([
-        supabase.from('blogs').select('*').eq('is_published', true).order('published_at', { ascending: false }),
-        supabase.from('videos').select('*').eq('is_published', true).order('created_at', { ascending: false }),
-      ]);
-      setBlogs(blogsRes.data || []);
-      setVideos((videosRes.data as Video[]) || []);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center pt-16">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
