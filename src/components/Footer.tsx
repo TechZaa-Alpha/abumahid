@@ -1,4 +1,4 @@
-import { Code2, Github, GitBranch, MessageSquare } from "lucide-react";
+import { Code2, GitBranch, Github, MessageSquare } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -8,17 +8,21 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start gap-2">
             <div className="flex items-center gap-2">
               <Code2 className="w-5 h-5 text-primary" />
-              <span className="font-bold">Elias</span>
+              <span className="font-bold">Abumahid</span>
             </div>
-            <p className="text-sm text-muted-foreground">elias@elias-dev.ml</p>
-            <p className="text-sm text-muted-foreground">Web designer and front-end developer</p>
+            <p className="text-sm text-muted-foreground">
+              dev.abumahid@gmail.com
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Full-stack developer and Problem Solver
+            </p>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Media</h3>
             <div className="flex gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/abumahid"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
@@ -36,7 +40,7 @@ const Footer = () => {
                 <GitBranch className="w-5 h-5" />
               </a>
               <a
-                href="https://discord.com"
+                href="https://discord.com/abumahid"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
@@ -49,7 +53,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-border text-center text-sm text-muted-foreground">
-          © Copyright 2022. Made by Elias
+          © Copyright {new Date().getFullYear()}. Made by Abumahid
         </div>
       </div>
     </footer>
