@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
-import heroPersonImg from "@/assets/hero-person.png";
+import heroPersonImg from "@/assets/photo.webp";
 
 // Static placeholder data - replace with your own or fetch from your custom backend
 const education: {

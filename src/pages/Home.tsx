@@ -239,9 +239,7 @@ const Home = () => {
 
           <div className="space-y-4 stagger-children lg:col-span-2 lg:flex lg:flex-wrap lg:gap-8">
             {Object.keys(groupedSkills).length === 0 ? (
-              <p className="text-muted-foreground">
-                No skills added yet.
-              </p>
+              <p className="text-muted-foreground">No skills added yet.</p>
             ) : (
               Object.entries(groupedSkills).map(
                 ([category, categorySkills]) => (
