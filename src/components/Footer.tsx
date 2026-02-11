@@ -1,4 +1,11 @@
-import { Code2, GitBranch, Github, MessageSquare } from "lucide-react";
+import {
+  Code2,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+} from "lucide-react";
 
 const Footer = () => {
   return (
@@ -22,31 +29,49 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Media</h3>
             <div className="flex gap-4">
               <a
-                href="https://github.com/abumahid"
+                href="https://www.linkedin.com/in/md-abu-mahid-islam"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
-                aria-label="GitHub"
+                aria-label="LinkedIn"
               >
-                <Github className="w-5 h-5" />
+                <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="https://gitlab.com"
+                href="https://www.facebook.com/share/17yZptEFr5"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
-                aria-label="GitLab"
+                aria-label="Facebook"
               >
-                <GitBranch className="w-5 h-5" />
+                <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://discord.com/abumahid"
+                href="https://www.instagram.com/dev.abumahid?igsh=MWhheDdnbnl2MG53"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
-                aria-label="Discord"
+                aria-label="Instagram"
               >
-                <MessageSquare className="w-5 h-5" />
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://youtube.com/@mahid-web-world?si=hrOorWBH2bKXQooO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
+                aria-label="Youtube"
+              >
+                <Youtube className="w-5 h-5" />
+              </a>
+              <a
+                href="https://x.com/AbumahidIslam"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
               </a>
             </div>
           </div>

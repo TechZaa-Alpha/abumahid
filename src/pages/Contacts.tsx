@@ -25,31 +25,31 @@ const Contacts = () => {
               <h2 className="text-xl font-bold mb-6 text-primary neon-glow">Quick Contact</h2>
               <div className="space-y-4">
                 <a
-                  href="https://discord.com"
+                  href="https://discord.com/abumahid"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2 group"
                 >
                   <MessageSquare className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span>!Elias#3519</span>
+                  <span>abumahid</span>
                 </a>
                 <a
-                  href="mailto:elias@elias.me"
+                  href="mailto:dev.abumahid@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2 group"
                 >
                   <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span>elias@elias.me</span>
+                  <span>dev.abumahid@gmail</span>
                 </a>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/abumahid"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2 group"
                 >
                   <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span>github.com/elias</span>
+                  <span>github.com/abumahid</span>
                 </a>
                 <a
                   href="https://linkedin.com"

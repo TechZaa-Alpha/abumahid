@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   ArrowRight,
+  CloudDownload,
   Coffee,
   ExternalLink,
   Gamepad2,
@@ -67,12 +68,22 @@ const Home = () => {
               strong backend foundation—turning complex problems into scalable,
               elegant solutions through code.
             </p>
-            <div className="animate-fade-in-delay-2">
+            <div className="animate-fade-in-delay-2 space-x-5">
               <Link to="/contacts">
                 <Button className="neon-pulse bg-transparent border-2 border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105 text-primary">
                   Contact me !!
                 </Button>
               </Link>
+              <a
+                href="https://drive.google.com/uc?export=download&id=1wg91ZcwoLM52rCABiuKugIN_r9C8pDOv"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="bg-transparent border-2 border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105 text-primary">
+                  Download <CloudDownload />
+                </Button>
+              </a>
             </div>
           </div>
 
@@ -123,12 +134,15 @@ const Home = () => {
             "
           </div>
           <p className="text-xl text-center mb-4">
-            With great power comes great electricity bill
+            “Surely, with every hardship comes ease. So remain patient and place
+            your trust in Allah”
           </p>
           <div className="absolute -bottom-4 right-8 bg-background px-2 text-2xl text-primary neon-glow">
             "
           </div>
-          <p className="text-right text-muted-foreground mt-6">- Dr. Who</p>
+          <p className="text-right text-muted-foreground mt-6">
+            — The Qur’an (Surah Al-Inshirah - 94:6)
+          </p>
         </div>
       </section>
 

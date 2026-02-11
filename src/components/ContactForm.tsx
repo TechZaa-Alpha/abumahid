@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -156,7 +157,7 @@ const ContactForm = () => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full neon-pulse bg-transparent border-2 border-primary hover:bg-primary/10 transition-all duration-300 disabled:opacity-50"
+          className="w-full neon-pulse bg-transparent border-2 border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105 text-primary"
         >
           {isSubmitting ? (
             <>
