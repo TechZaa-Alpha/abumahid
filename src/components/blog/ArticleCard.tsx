@@ -1,15 +1,19 @@
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, ArrowUpRight } from 'lucide-react';
-import type { Blog } from '@/pages/Blogs';
+import { Badge } from "@/components/ui/badge";
+import { Blog } from "@/types";
+import { ArrowUpRight, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const ArticleCard = ({ blog }: { blog: Blog }) => {
   const formattedDate = blog.published_at
-    ? new Date(blog.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-    : '';
+    ? new Date(blog.published_at).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
 
   return (
-    <Link to={`/blog/${blog.slug}`}>
+    <Link to={`/blog/${blog._id}`}>
       <article className="group relative overflow-hidden rounded-lg border-2 border-border bg-card transition-all duration-500 hover:border-primary hover:-translate-y-2 hover:shadow-[0_0_30px_hsl(var(--neon-glow)/0.3),0_20px_40px_-15px_hsl(var(--neon-glow)/0.2)]">
         <div className="h-1 w-0 group-hover:w-full bg-gradient-to-r from-primary via-neon-intense to-primary transition-all duration-700 ease-out" />
 
@@ -38,7 +42,9 @@ export const ArticleCard = ({ blog }: { blog: Blog }) => {
           </h3>
 
           {blog.excerpt && (
-            <p className="text-sm text-muted-foreground line-clamp-2">{blog.excerpt}</p>
+            <p className="text-sm text-muted-foreground line-clamp-2">
+              {blog.excerpt}
+            </p>
           )}
 
           {blog.tags && blog.tags.length > 0 && (

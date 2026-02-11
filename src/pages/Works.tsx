@@ -1,41 +1,33 @@
-import { Link } from 'react-router-dom';
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github, Figma } from "lucide-react";
-
-// Static placeholder data - replace with your own or fetch from your custom backend
-interface Project {
-  id: string;
-  name: string;
-  description: string | null;
-  tech_stack: string[] | null;
-  tags: string[] | null;
-  image_url: string | null;
-  live_url: string | null;
-  github_url: string | null;
-  figma_url: string | null;
-  is_published: boolean | null;
-  is_featured: boolean | null;
-}
+import { Card } from "@/components/ui/card";
+import { Project } from "@/types";
+import { ExternalLink, Figma, Github } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const projects: Project[] = [];
 
 const Works = () => {
-  const featuredProjects = projects.filter(p => p.is_featured);
-  const regularProjects = projects.filter(p => !p.is_featured);
+  const featuredProjects = projects.filter((p) => p.is_featured);
+  const regularProjects = projects.filter((p) => !p.is_featured);
 
-  const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
-    <Link to={`/project/${project.id}`}>
+  const ProjectCard = ({
+    project,
+    index,
+  }: {
+    project: Project;
+    index: number;
+  }) => (
+    <Link to={`/project/${project._id}`}>
       <Card
         className="group border-2 border-border hover:border-primary transition-all overflow-hidden bg-card hover:neon-border animate-fade-in cursor-pointer h-full"
         style={{ animationDelay: `${index * 0.1}s` }}
       >
         {project.image_url && (
           <div className="h-48 overflow-hidden bg-muted">
-            <img 
-              src={project.image_url} 
-              alt={project.name} 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+            <img
+              src={project.image_url}
+              alt={project.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </div>
         )}
@@ -43,14 +35,18 @@ const Works = () => {
           {project.tech_stack && project.tech_stack.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {project.tech_stack.slice(0, 4).map((tech) => (
-                <span key={tech} className="text-xs text-muted-foreground">{tech}</span>
+                <span key={tech} className="text-xs text-muted-foreground">
+                  {tech}
+                </span>
               ))}
             </div>
           )}
-          <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{project.name}</h3>
+          <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
+            {project.name}
+          </h3>
           {project.description && (
             <p className="text-sm text-muted-foreground line-clamp-2">
-              {project.description.replace(/<[^>]*>/g, '').slice(0, 100)}...
+              {project.description.replace(/<[^>]*>/g, "").slice(0, 100)}...
             </p>
           )}
           <div className="flex gap-2 flex-wrap">
@@ -93,7 +89,9 @@ const Works = () => {
 
         {projects.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-muted-foreground text-lg">No projects yet. Check back soon!</p>
+            <p className="text-muted-foreground text-lg">
+              No projects yet. Check back soon!
+            </p>
           </div>
         ) : (
           <>
@@ -104,7 +102,11 @@ const Works = () => {
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {featuredProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+                    <ProjectCard
+                      key={project._id}
+                      project={project}
+                      index={index}
+                    />
                   ))}
                 </div>
               </section>
@@ -117,7 +119,11 @@ const Works = () => {
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {regularProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+                    <ProjectCard
+                      key={project._id}
+                      project={project}
+                      index={index}
+                    />
                   ))}
                 </div>
               </section>

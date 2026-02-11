@@ -1,29 +1,34 @@
-import { useParams, Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Calendar } from 'lucide-react';
-import type { Blog } from './Blogs';
+import { Badge } from "@/components/ui/badge";
+import { Blog } from "@/types";
+import { ArrowLeft, Calendar } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 
-// Static placeholder data - replace with your own or fetch from your custom backend
 const blogs: Blog[] = [];
 
 const BlogDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const blog = blogs.find(b => b.slug === slug) || null;
+  const { blogId } = useParams<{ blogId: string }>();
+  const blog = blogs.find((b) => b._id === blogId) || null;
 
   if (!blog) {
     return (
       <div className="min-h-screen pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold mb-4">Article not found</h1>
-          <Link to="/blogs" className="text-primary hover:underline">← Back to blogs</Link>
+          <Link to="/blogs" className="text-primary hover:underline">
+            ← Back to blogs
+          </Link>
         </div>
       </div>
     );
   }
 
   const formattedDate = blog.published_at
-    ? new Date(blog.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-    : '';
+    ? new Date(blog.published_at).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -61,7 +66,11 @@ const BlogDetail = () => {
           {blog.tags && blog.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {blog.tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="border-primary/40 text-primary/80">
+                <Badge
+                  key={tag}
+                  variant="outline"
+                  className="border-primary/40 text-primary/80"
+                >
                   {tag}
                 </Badge>
               ))}
@@ -76,7 +85,10 @@ const BlogDetail = () => {
         )}
 
         {blog.content && (
-          <article className="prose max-w-none animate-fade-in-delay-3" dangerouslySetInnerHTML={{ __html: blog.content }} />
+          <article
+            className="prose max-w-none animate-fade-in-delay-3"
+            dangerouslySetInnerHTML={{ __html: blog.content }}
+          />
         )}
       </div>
     </div>

@@ -1,7 +1,7 @@
-import { ExternalLink, Play } from 'lucide-react';
+import { ExternalLink, Play } from "lucide-react";
 
 interface Video {
-  id: string;
+  _id: string;
   video_title: string;
   short_description: string | null;
   content_link: string;
@@ -10,8 +10,10 @@ interface Video {
 }
 
 export const VideoCard = ({ video }: { video: Video }) => {
-  const formattedDate = new Date(video.created_at).toLocaleDateString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric',
+  const formattedDate = new Date(video.created_at).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   });
 
   return (
@@ -44,7 +46,10 @@ export const VideoCard = ({ video }: { video: Video }) => {
 
           {/* Play icon */}
           <div className="relative z-10 w-16 h-16 rounded-full border-2 border-accent/60 flex items-center justify-center bg-accent/10 backdrop-blur-sm group-hover:bg-accent/20 group-hover:border-accent group-hover:shadow-[0_0_20px_hsl(var(--accent)/0.5)] transition-all duration-500 group-hover:scale-110">
-            <Play className="w-7 h-7 text-accent ml-0.5 group-hover:scale-110 transition-transform duration-300" fill="currentColor" />
+            <Play
+              className="w-7 h-7 text-accent ml-0.5 group-hover:scale-110 transition-transform duration-300"
+              fill="currentColor"
+            />
           </div>
 
           {/* Corner scanlines effect */}
@@ -66,7 +71,9 @@ export const VideoCard = ({ video }: { video: Video }) => {
 
           {/* Description */}
           {video.short_description && (
-            <p className="text-sm text-muted-foreground line-clamp-2">{video.short_description}</p>
+            <p className="text-sm text-muted-foreground line-clamp-2">
+              {video.short_description}
+            </p>
           )}
         </div>
 

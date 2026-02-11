@@ -1,6 +1,6 @@
-import { Card } from "@/components/ui/card";
-import { MessageSquare, Mail, Github, Linkedin, MapPin } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import { Card } from "@/components/ui/card";
+import { Github, Linkedin, Mail, MapPin, MessageSquare } from "lucide-react";
 
 const Contacts = () => {
   return (
@@ -17,12 +17,15 @@ const Contacts = () => {
           {/* Left Column - Contact Info */}
           <div className="space-y-8 animate-slide-in-left">
             <p className="text-muted-foreground text-lg">
-              I'm interested in freelance opportunities. However, if you have other requests or questions, don't hesitate
-              to contact me using the form or through my social links.
+              I'm interested in freelance opportunities. However, if you have
+              other requests or questions, don't hesitate to contact me using
+              the form or through my social links.
             </p>
 
             <Card className="p-6 border-2 border-border bg-card hover-neon-glow transition-all duration-300">
-              <h2 className="text-xl font-bold mb-6 text-primary neon-glow">Quick Contact</h2>
+              <h2 className="text-xl font-bold mb-6 text-primary neon-glow">
+                Quick Contact
+              </h2>
               <div className="space-y-4">
                 <a
                   href="https://discord.com/abumahid"
@@ -52,22 +55,24 @@ const Contacts = () => {
                   <span>github.com/abumahid</span>
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/in/md-abu-mahid-islam"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2 group"
                 >
                   <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span>linkedin.com/in/elias</span>
+                  <span>linkedin.com/in/md-abu-mahid-islam</span>
                 </a>
               </div>
             </Card>
 
             <Card className="p-6 border-2 border-border bg-card hover-neon-glow transition-all duration-300">
-              <h2 className="text-xl font-bold mb-4 text-primary neon-glow">Location</h2>
+              <h2 className="text-xl font-bold mb-4 text-primary neon-glow">
+                Location
+              </h2>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <MapPin className="w-5 h-5 text-primary" />
-                <span>Kyiv, Ukraine</span>
+                <span>5420-Taragonj, Rangpur, Bangladesh</span>
               </div>
             </Card>
 

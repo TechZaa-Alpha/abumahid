@@ -51,7 +51,7 @@ const Home = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="flex justify-between flex-col md:flex-row gap-12 items-center ">
           <div className="space-y-6 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight">
               Abumahid is a{" "}
@@ -63,8 +63,8 @@ const Home = () => {
                 Problem Solver
               </span>
             </h1>
-            <p className="text-muted-foreground text-lg animate-fade-in-delay-1">
-              I design and develop high-performance web applications with a
+            <p className="text-muted-foreground text-lg animate-fade-in-delay-1 ">
+              I develop high-performance web applications with a
               strong backend foundation—turning complex problems into scalable,
               elegant solutions through code.
             </p>
@@ -251,24 +251,43 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="space-y-4 stagger-children lg:col-span-2 lg:flex lg:flex-wrap lg:gap-8">
-            {Object.keys(groupedSkills).length === 0 ? (
-              <p className="text-muted-foreground">No skills added yet.</p>
-            ) : (
-              Object.entries(groupedSkills).map(
-                ([category, categorySkills]) => (
-                  <Card
-                    key={category}
-                    className="p-4 border-2 border-border hover-neon-glow transition-all duration-300 bg-card lg:w-fit"
-                  >
-                    <h3 className="font-bold mb-3 text-primary">{category}</h3>
-                    <div className="text-sm text-muted-foreground">
-                      {categorySkills.map((s) => s.name).join(" ")}
-                    </div>
-                  </Card>
-                ),
-              )
-            )}
+          <div className="space-y-4 lg:col-span-2">
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                <h3 className="font-bold mb-3">Languages</h3>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>TypeScript JavaScript Python</div>
+                  <div>C Java</div>
+                </div>
+              </Card>
+              <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                <h3 className="font-bold mb-3">Databases</h3>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>MongoDb PostgreSQL Supabase</div>
+                  <div>Prisma(ORM) Mongoose(ODM)</div>
+                </div>
+              </Card>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                <h3 className="font-bold mb-3">Tools</h3>
+                <div className="text-sm text-muted-foreground">
+                  VSCode Git Linux Figma Postman Docker Swagger
+                </div>
+              </Card>
+              <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+                <h3 className="font-bold mb-3">Other</h3>
+                <div className="text-sm text-muted-foreground">
+                  HTML CSS EJS SCSS REST TailwindCSS
+                </div>
+              </Card>
+            </div>
+            <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
+              <h3 className="font-bold mb-3">Frameworks</h3>
+              <div className="text-sm text-muted-foreground">
+                Node.js Express.js Nest.js React.js Next.js
+              </div>
+            </Card>
           </div>
         </div>
       </section>

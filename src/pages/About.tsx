@@ -1,6 +1,7 @@
 import heroPersonImg from "@/assets/photo.webp";
+import EducationCards from "@/components/EducationCards";
 import { Card } from "@/components/ui/card";
-import { GraduationCap, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 // Static placeholder data - replace with your own or fetch from your custom backend
 const education: {
@@ -106,15 +107,15 @@ const About = () => {
                 <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
                   <h3 className="font-bold mb-3">Languages</h3>
                   <div className="text-sm text-muted-foreground space-y-1">
-                    <div>TypeScript Lua</div>
-                    <div>Python JavaScript</div>
+                    <div>TypeScript JavaScript Python</div>
+                    <div>C Java</div>
                   </div>
                 </Card>
                 <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
                   <h3 className="font-bold mb-3">Databases</h3>
                   <div className="text-sm text-muted-foreground space-y-1">
-                    <div>SQLite PostgreSQL</div>
-                    <div>Mongo</div>
+                    <div>MongoDb PostgreSQL Supabase</div>
+                    <div>Prisma(ORM) Mongoose(ODM)</div>
                   </div>
                 </Card>
               </div>
@@ -122,69 +123,26 @@ const About = () => {
                 <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
                   <h3 className="font-bold mb-3">Tools</h3>
                   <div className="text-sm text-muted-foreground">
-                    VSCode Neovim Linux Figma XFCE Arch
+                    VSCode Git Linux Figma Postman Docker Swagger
                   </div>
                 </Card>
                 <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
                   <h3 className="font-bold mb-3">Other</h3>
                   <div className="text-sm text-muted-foreground">
-                    HTML CSS EJS SCSS REST Jinja
+                    HTML CSS EJS SCSS REST TailwindCSS
                   </div>
                 </Card>
               </div>
               <Card className="p-4 border-2 border-border hover:border-primary transition-all bg-card">
                 <h3 className="font-bold mb-3">Frameworks</h3>
                 <div className="text-sm text-muted-foreground">
-                  React Vue Disnake Discord.js Flask Express.js
+                  Node.js Express.js Nest.js React.js Next.js
                 </div>
               </Card>
             </div>
           </div>
         </section>
-
-        {/* Education Section */}
-        <section>
-          <h2 className="text-3xl font-bold mb-8 animate-fade-in">
-            <span className="text-primary">#</span>education
-          </h2>
-          {education.length === 0 ? (
-            <p className="text-muted-foreground text-center py-8">
-              No education entries yet.
-            </p>
-          ) : (
-            <div className="space-y-6">
-              {education.map((edu, index) => (
-                <div
-                  key={edu.id}
-                  className="relative pl-8 border-l-2 border-primary/30 hover:border-primary transition-all animate-fade-in group"
-                  style={{ animationDelay: `${index * 0.15}s` }}
-                >
-                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-primary bg-background group-hover:bg-primary group-hover:shadow-[0_0_12px_hsl(var(--primary))] transition-all" />
-                  <div className="flex items-start gap-3">
-                    <GraduationCap className="w-5 h-5 text-primary mt-1 shrink-0" />
-                    <div>
-                      <h3 className="font-bold text-lg">{edu.degree}</h3>
-                      {edu.field_of_study && (
-                        <p className="text-primary text-sm">
-                          {edu.field_of_study}
-                        </p>
-                      )}
-                      <p className="text-muted-foreground">{edu.institution}</p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {edu.start_date} – {edu.end_date || "Present"}
-                      </p>
-                      {edu.description && (
-                        <p className="text-sm text-muted-foreground mt-2">
-                          {edu.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
+        <EducationCards />
       </div>
     </div>
   );

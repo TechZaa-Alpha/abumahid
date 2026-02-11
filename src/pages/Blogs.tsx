@@ -1,32 +1,7 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ArticleCard } from '@/components/blog/ArticleCard';
-import { VideoCard } from '@/components/blog/VideoCard';
-
-// Static placeholder data - replace with your own or fetch from your custom backend
-export interface Blog {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string | null;
-  content: string | null;
-  cover_image_url: string | null;
-  tags: string[] | null;
-  is_published: boolean | null;
-  published_at: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface Video {
-  id: string;
-  video_title: string;
-  short_description: string | null;
-  content_link: string;
-  thumbnail_url: string | null;
-  is_published: boolean | null;
-  created_at: string;
-  updated_at: string;
-}
+import { ArticleCard } from "@/components/blog/ArticleCard";
+import { VideoCard } from "@/components/blog/VideoCard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Blog, Video } from "@/types";
 
 const blogs: Blog[] = [];
 const videos: Video[] = [];
@@ -39,7 +14,9 @@ const Blogs = () => {
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             <span className="text-primary neon-text-pulse">/</span>blogs
           </h1>
-          <p className="text-muted-foreground">Articles and video content I've created</p>
+          <p className="text-muted-foreground">
+            Articles and video content I've created
+          </p>
         </div>
 
         <Tabs defaultValue="articles" className="animate-fade-in-delay-1">
@@ -60,11 +37,13 @@ const Blogs = () => {
 
           <TabsContent value="articles">
             {blogs.length === 0 ? (
-              <p className="text-muted-foreground text-center py-16">No articles published yet.</p>
+              <p className="text-muted-foreground text-center py-16">
+                No articles published yet.
+              </p>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                 {blogs.map((blog) => (
-                  <ArticleCard key={blog.id} blog={blog} />
+                  <ArticleCard key={blog._id} blog={blog} />
                 ))}
               </div>
             )}
@@ -72,11 +51,13 @@ const Blogs = () => {
 
           <TabsContent value="videos">
             {videos.length === 0 ? (
-              <p className="text-muted-foreground text-center py-16">No videos published yet.</p>
+              <p className="text-muted-foreground text-center py-16">
+                No videos published yet.
+              </p>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                 {videos.map((video) => (
-                  <VideoCard key={video.id} video={video} />
+                  <VideoCard key={video._id} video={video} />
                 ))}
               </div>
             )}

@@ -2,26 +2,14 @@ import { useParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ExternalLink, Github, Figma } from 'lucide-react';
+import { Project } from '@/types';
 
-// Static placeholder data - replace with your own or fetch from your custom backend
-interface Project {
-  id: string;
-  name: string;
-  description: string | null;
-  tech_stack: string[] | null;
-  tags: string[] | null;
-  image_url: string | null;
-  live_url: string | null;
-  github_url: string | null;
-  figma_url: string | null;
-  is_featured: boolean | null;
-}
 
 const projects: Project[] = [];
 
 const ProjectDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const project = projects.find(p => p.id === id) || null;
+  const project = projects.find(p => p._id === id) || null;
 
   if (!project) {
     return (
