@@ -1,44 +1,28 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, Figma } from "lucide-react";
-import type { Tables } from '@/integrations/supabase/types';
 
-type Project = Tables<'projects'>;
+// Static placeholder data - replace with your own or fetch from your custom backend
+interface Project {
+  id: string;
+  name: string;
+  description: string | null;
+  tech_stack: string[] | null;
+  tags: string[] | null;
+  image_url: string | null;
+  live_url: string | null;
+  github_url: string | null;
+  figma_url: string | null;
+  is_published: boolean | null;
+  is_featured: boolean | null;
+}
+
+const projects: Project[] = [];
 
 const Works = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
-    const { data } = await supabase
-      .from('projects')
-      .select('*')
-      .eq('is_published', true)
-      .order('is_featured', { ascending: false })
-      .order('created_at', { ascending: false });
-
-    setProjects(data || []);
-    setIsLoading(false);
-  };
-
   const featuredProjects = projects.filter(p => p.is_featured);
   const regularProjects = projects.filter(p => !p.is_featured);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
 
   const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
     <Link to={`/project/${project.id}`}>

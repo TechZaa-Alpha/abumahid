@@ -1,45 +1,27 @@
-import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ExternalLink, Github, Figma } from 'lucide-react';
-import type { Tables } from '@/integrations/supabase/types';
 
-type Project = Tables<'projects'>;
+// Static placeholder data - replace with your own or fetch from your custom backend
+interface Project {
+  id: string;
+  name: string;
+  description: string | null;
+  tech_stack: string[] | null;
+  tags: string[] | null;
+  image_url: string | null;
+  live_url: string | null;
+  github_url: string | null;
+  figma_url: string | null;
+  is_featured: boolean | null;
+}
+
+const projects: Project[] = [];
 
 const ProjectDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const [project, setProject] = useState<Project | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (id) {
-      fetchProject();
-    }
-  }, [id]);
-
-  const fetchProject = async () => {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .eq('id', id)
-      .eq('is_published', true)
-      .single();
-
-    if (!error && data) {
-      setProject(data);
-    }
-    setIsLoading(false);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
+  const project = projects.find(p => p.id === id) || null;
 
   if (!project) {
     return (
