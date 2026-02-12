@@ -8,7 +8,6 @@ export interface Project {
   live_url: string | null;
   github_url: string | null;
   figma_url: string | null;
-  is_published: boolean | null;
   is_featured: boolean | null;
 }
 
@@ -19,10 +18,8 @@ export interface Blog {
   content: string | null;
   cover_image_url: string | null;
   tags: string[] | null;
-  is_published: boolean | null;
-  published_at: string | null;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Video {
@@ -31,7 +28,6 @@ export interface Video {
   short_description: string | null;
   content_link: string;
   thumbnail_url: string | null;
-  is_published: boolean | null;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }

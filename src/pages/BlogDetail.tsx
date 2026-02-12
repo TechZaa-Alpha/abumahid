@@ -1,13 +1,13 @@
 import { Badge } from "@/components/ui/badge";
-import { Blog } from "@/types";
+import { useGetSingleBlogQuery } from "@/redux/features/blog.api";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
-const blogs: Blog[] = [];
-
 const BlogDetail = () => {
   const { blogId } = useParams<{ blogId: string }>();
-  const blog = blogs.find((b) => b._id === blogId) || null;
+  const { data, isLoading } = useGetSingleBlogQuery({ blogId });
+  if (isLoading) return;
+  const blog = data?.data;
 
   if (!blog) {
     return (
@@ -41,11 +41,11 @@ const BlogDetail = () => {
           Back to blogs
         </Link>
 
-        {blog.cover_image_url && (
+        {blog?.cover_image_url && (
           <div className="relative h-64 sm:h-80 md:h-96 overflow-hidden rounded-lg border-2 border-border mb-8 animate-fade-in">
             <img
-              src={blog.cover_image_url}
-              alt={blog.title}
+              src={blog?.cover_image_url}
+              alt={blog?.title}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
@@ -53,7 +53,7 @@ const BlogDetail = () => {
         )}
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
-          {blog.title}
+          {blog?.title}
         </h1>
 
         <div className="flex flex-wrap items-center gap-4 mb-8 animate-fade-in-delay-1">
@@ -63,9 +63,9 @@ const BlogDetail = () => {
               {formattedDate}
             </div>
           )}
-          {blog.tags && blog.tags.length > 0 && (
+          {blog?.tags && blog?.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {blog.tags.map((tag) => (
+              {blog?.tags.map((tag) => (
                 <Badge
                   key={tag}
                   variant="outline"
@@ -78,16 +78,16 @@ const BlogDetail = () => {
           )}
         </div>
 
-        {blog.excerpt && (
+        {blog?.excerpt && (
           <p className="text-lg text-muted-foreground mb-8 border-l-2 border-primary pl-4 animate-fade-in-delay-2">
-            {blog.excerpt}
+            {blog?.excerpt}
           </p>
         )}
 
-        {blog.content && (
+        {blog?.content && (
           <article
             className="prose max-w-none animate-fade-in-delay-3"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            dangerouslySetInnerHTML={{ __html: blog?.content }}
           />
         )}
       </div>

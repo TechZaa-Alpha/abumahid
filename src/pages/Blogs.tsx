@@ -1,12 +1,18 @@
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { VideoCard } from "@/components/blog/VideoCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useGetBlogsQuery } from "@/redux/features/blog.api";
+import { useGetVideosQuery } from "@/redux/features/video.api";
 import { Blog, Video } from "@/types";
 
-const blogs: Blog[] = [];
-const videos: Video[] = [];
 
 const Blogs = () => {
+  const { data: allBlogs, isLoading: isBlogsLoading } = useGetBlogsQuery({});
+  const { data: allVideos, isLoading: isVideosLoading } = useGetVideosQuery({});
+  if (isBlogsLoading || isVideosLoading) return;
+  const blogs: Blog[] = allBlogs?.data;
+  const videos: Video[] = allVideos?.data;
+
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

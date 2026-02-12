@@ -29,7 +29,7 @@ const AppLayout = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blog/:slug" element={<BlogDetail />} />
+          <Route path="/blog/:blogId" element={<BlogDetail />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

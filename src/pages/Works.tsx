@@ -1,12 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { useGetProjectsQuery } from "@/redux/features/project.api";
 import { Project } from "@/types";
 import { ExternalLink, Figma, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const projects: Project[] = [];
-
 const Works = () => {
+  const { data, isLoading } = useGetProjectsQuery({});
+  if (isLoading) return;
+  const projects: Project[] = data?.data;
   const featuredProjects = projects.filter((p) => p.is_featured);
   const regularProjects = projects.filter((p) => !p.is_featured);
 

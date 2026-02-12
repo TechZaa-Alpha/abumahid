@@ -2,6 +2,8 @@ import heroPersonImg from "@/assets/photo.webp";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useGetProjectsQuery } from "@/redux/features/project.api";
+import { Project } from "@/types";
 import {
   ArrowRight,
   CloudDownload,
@@ -17,35 +19,9 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// Static placeholder data - replace with your own or fetch from your custom backend
-const projects: {
-  id: string;
-  name: string;
-  description: string | null;
-  tech_stack: string[] | null;
-  image_url: string | null;
-  live_url: string | null;
-  github_url: string | null;
-  is_featured: boolean | null;
-}[] = [];
-
-const skills: {
-  id: string;
-  name: string;
-  category: string | null;
-}[] = [];
-
 const Home = () => {
-  // Group skills by category
-  const groupedSkills = skills.reduce(
-    (acc, skill) => {
-      const category = skill.category || "Other";
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(skill);
-      return acc;
-    },
-    {} as Record<string, typeof skills>,
-  );
+  const { data, isLoading } = useGetProjectsQuery({ isFeatured: true });
+  if (isLoading) return;
 
   return (
     <div className="min-h-screen">
@@ -64,9 +40,9 @@ const Home = () => {
               </span>
             </h1>
             <p className="text-muted-foreground text-lg animate-fade-in-delay-1 ">
-              I develop high-performance web applications with a
-              strong backend foundation—turning complex problems into scalable,
-              elegant solutions through code.
+              I develop high-performance web applications with a strong backend
+              foundation—turning complex problems into scalable, elegant
+              solutions through code.
             </p>
             <div className="animate-fade-in-delay-2 space-x-5">
               <Link to="/contacts">
@@ -164,43 +140,43 @@ const Home = () => {
           </Link>
         </div>
 
-        {projects.length === 0 ? (
+        {data?.data?.length === 0 ? (
           <p className="text-muted-foreground text-center py-8">
             No projects yet. Add some from your backend!
           </p>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-            {projects.map((project) => (
-              <Link to={`/project/${project.id}`} key={project.id}>
+            {data?.data?.map((project: Project) => (
+              <Link to={`/project/${project?._id}`} key={project?._id}>
                 <Card className="group border-2 border-border hover:border-primary transition-all duration-300 overflow-hidden bg-card hover-neon-glow h-full">
-                  {project.image_url && (
+                  {project?.image_url && (
                     <div className="h-48 overflow-hidden bg-muted">
                       <img
-                        src={project.image_url}
-                        alt={project.name}
+                        src={project?.image_url}
+                        alt={project?.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
                   )}
                   <div className="p-6 space-y-4">
-                    {project.tech_stack && project.tech_stack.length > 0 && (
+                    {project?.tech_stack && project?.tech_stack.length > 0 && (
                       <div className="text-xs text-muted-foreground">
-                        {project.tech_stack.join(" ")}
+                        {project?.tech_stack.join(" ")}
                       </div>
                     )}
                     <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                      {project.name}
+                      {project?.name}
                     </h3>
-                    {project.description && (
+                    {project?.description && (
                       <p className="text-sm text-muted-foreground line-clamp-2">
-                        {project.description
+                        {project?.description
                           .replace(/<[^>]*>/g, "")
                           .slice(0, 80)}
                         ...
                       </p>
                     )}
                     <div className="flex gap-2 flex-wrap">
-                      {project.live_url && (
+                      {project?.live_url && (
                         <Badge
                           variant="outline"
                           className="border-primary text-primary"
@@ -208,7 +184,7 @@ const Home = () => {
                           Live <ExternalLink className="w-3 h-3 ml-1" />
                         </Badge>
                       )}
-                      {project.github_url && (
+                      {project?.github_url && (
                         <Badge
                           variant="outline"
                           className="border-primary text-primary"
