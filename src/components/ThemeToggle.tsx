@@ -1,5 +1,3 @@
-import { Moon, Sun, Sparkles, Droplets, Leaf, Heart } from "lucide-react";
-import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,6 +5,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTheme } from "@/hooks/use-theme";
+import {
+  CloudSun,
+  Crown,
+  Droplets,
+  FlaskConical,
+  Heart,
+  Leaf,
+  Moon,
+  MoonStar,
+  Sparkles,
+  Sun,
+  TreePine,
+  Waves,
+  Zap,
+} from "lucide-react";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -23,6 +37,20 @@ const ThemeToggle = () => {
         return <Leaf className="w-4 h-4" />;
       case "pink":
         return <Heart className="w-4 h-4" />;
+      case "red":
+        return <Zap className="w-4 h-4" />;
+      case "purple":
+        return <Crown className="w-4 h-4" />;
+      case "ocean":
+        return <Waves className="w-4 h-4" />;
+      case "orange":
+        return <CloudSun className="w-4 h-4" />;
+      case "amoled":
+        return <MoonStar className="w-4 h-4" />;
+      case "mint":
+        return <TreePine className="w-4 h-4" />;
+      case "fusion":
+        return <FlaskConical className="w-4 h-4" />;
       default:
         return <Moon className="w-4 h-4" />;
     }
@@ -81,6 +109,55 @@ const ThemeToggle = () => {
         >
           <Heart className="w-4 h-4 mr-2" />
           Pink
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("red")}
+          className={`cursor-pointer ${theme === "red" ? "text-primary" : ""}`}
+        >
+          <Zap className="w-4 h-4 mr-2" />
+          Red
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("purple")}
+          className={`cursor-pointer ${theme === "purple" ? "text-primary" : ""}`}
+        >
+          <Crown className="w-4 h-4 mr-2" />
+          Purple
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("ocean")}
+          className={`cursor-pointer ${theme === "ocean" ? "text-primary" : ""}`}
+        >
+          <Waves className="w-4 h-4 mr-2" />
+          Ocean
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("orange")}
+          className={`cursor-pointer ${theme === "orange" ? "text-primary" : ""}`}
+        >
+          <CloudSun className="w-4 h-4 mr-2" />
+          Orange
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("amoled")}
+          className={`cursor-pointer ${theme === "amoled" ? "text-primary" : ""}`}
+        >
+          <MoonStar className="w-4 h-4 mr-2" />
+          Amoled
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("mint")}
+          className={`cursor-pointer ${theme === "mint" ? "text-primary" : ""}`}
+        >
+          <TreePine className="w-4 h-4 mr-2" />
+          Mint
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme("fusion")}
+          className={`cursor-pointer ${theme === "fusion" ? "text-primary" : ""}`}
+        >
+          <FlaskConical className="w-4 h-4 mr-2" />
+          Fusion
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

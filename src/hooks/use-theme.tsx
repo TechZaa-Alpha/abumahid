@@ -1,6 +1,25 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-type Theme = "dark" | "light" | "yellow" | "blue" | "green" | "pink";
+type Theme =
+  | "dark"
+  | "light"
+  | "yellow"
+  | "blue"
+  | "green"
+  | "pink"
+  | "red"
+  | "purple"
+  | "ocean"
+  | "orange"
+  | "amoled"
+  | "mint"
+  | "fusion";
 
 interface ThemeContextType {
   theme: Theme;
@@ -17,7 +36,21 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.remove("dark", "light", "yellow", "blue", "green", "pink");
+    root.classList.remove(
+      "dark",
+      "light",
+      "yellow",
+      "blue",
+      "green",
+      "pink",
+      "red",
+      "purple",
+      "ocean",
+      "orange",
+      "amoled",
+      "mint",
+      "fusion"
+    );
     root.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
